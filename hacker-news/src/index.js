@@ -1,16 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Button } from '@mui/material';
+import React from "react";
+import ReactDOM from "react-dom/client";
 
-class News extends React.Component {
-    render() {
-      return (
-        <div className="news">
-            <Button>MUI</Button>
-        </div>
-      );
-    }
-  }
+import Home from "./components/Home";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<News />);
+root.render(<Home />);
