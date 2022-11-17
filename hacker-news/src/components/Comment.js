@@ -1,5 +1,7 @@
 import { Component } from "react";
-import { CardContent, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import formatDate from "../assets/utils/filters";
 
 class Details extends Component {
   state = { loading: true };
@@ -17,30 +19,47 @@ class Details extends Component {
       return <h2>loading … </h2>;
     }
 
-    const { by } = this.state;
-    // const { by, key, kids, parent, text, time } = this.state;
+    const { by, text, time } = this.state;
 
     return (
-      <div
-        className="details"
-        style={{ backgroundColor: "pink", marginLeft: "30px" }}
-      >
-        <CardContent>
-          <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-            {by}
-          </Typography>
-          {/* <Typography sx={{ mb: 1.5 }} color="text.secondary">
-            {key}
-          </Typography>
-          <Typography variant="body2">
-            {time} <br />
-            {text}
-          </Typography>
-          <Typography variant="body2">
-            Kids :{kids} <br />
-            {parent}
-          </Typography> */}
-        </CardContent>
+      <div>
+        {by ? (
+          <Paper sx={{ p: 2, width: "100%", my: 1 }}>
+            <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  fontWeight: "bold",
+                  flexGrow: 1,
+                }}
+              >
+                <AccountCircleOutlinedIcon />
+                <Typography
+                  variant="h6"
+                  component="div"
+                  sx={{ color: "#311b92" }}
+                >
+                  {by}:
+                </Typography>
+              </Typography>
+              <Typography variant="caption" color="inherit">
+                {formatDate(time)}
+              </Typography>
+            </Box>
+            <Box>
+              <Typography variant="caption" color="inherit">
+                {text}
+              </Typography>
+            </Box>
+          </Paper>
+        ) : null}
+
+        {/* <Typography variant="body2">
+             Kids :{kids} <br />
+             {parent}
+           </Typography> */}
       </div>
     );
   }

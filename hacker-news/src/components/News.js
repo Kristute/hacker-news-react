@@ -1,3 +1,4 @@
+import { Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
 import Story from "./Story";
 
@@ -11,23 +12,28 @@ const News = () => {
 
   async function requestComments() {
     const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&limitToFirst=${LIMIT}`
+      // `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&limitToFirst=${LIMIT}`
+      `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`
     );
     const json = await res.json();
 
-    setNews(json);
+    setNews(Object.values(json));
   }
 
   return (
-    <div className="search">
-      {news.length !== 0 ? (
-        news.map((item) => {
-          return <Story key={item} item={item} />;
-        })
-      ) : (
-        <h1>No News Found</h1>
-      )}
-    </div>
+    <Grid container spacing={2} sx={{ marginTop: 2 }}>
+      <Grid item sx={{ width: "100%" }}>
+        {news.length !== 0 ? (
+          news.map((item) => {
+            return <Story key={item} item={item} />;
+          })
+        ) : (
+          <Typography variant="h5" component="div">
+            No News Found
+          </Typography>
+        )}
+      </Grid>
+    </Grid>
   );
 };
 

@@ -8,15 +8,13 @@ const Header = () => {
   const [theme] = useContext(ThemeContext);
 
   return (
-    <div>
-      <AppBar position="static" sx={{ backgroundColor: theme }}>
-        <Toolbar>
-          <div>
-            <img src={Logo} width={"100%"} height={30} alt="Logo" />
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar position="static" sx={{ backgroundColor: theme }}>
+      <Toolbar>
+        <div>
+          <img src={Logo} width={"100%"} height={30} alt="Logo" />
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 };
 
