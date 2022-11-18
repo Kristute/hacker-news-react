@@ -38,7 +38,7 @@ const GuestFooter = () => {
           }}
         >
           <Typography variant="caption" color="initial">
-            © 2022
+            {/* TODO: add current year */}© 2022
           </Typography>
         </Box>
       </Container>

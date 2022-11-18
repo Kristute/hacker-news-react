@@ -16,7 +16,11 @@ class Details extends Component {
 
   render() {
     if (this.state.loading) {
-      return <h2>loading … </h2>;
+      return (
+        <Typography variant="h5" component="h2">
+          loading …
+        </Typography>
+      );
     }
 
     const { by, text, time } = this.state;
@@ -55,7 +59,7 @@ class Details extends Component {
             </Box>
           </Paper>
         ) : null}
-
+        {/* TODO: adjust kids */}
         {/* <Typography variant="body2">
              Kids :{kids} <br />
              {parent}

@@ -11,6 +11,7 @@ const News = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   async function requestComments() {
+    // TODO: adjust link for pagination
     const res = await fetch(
       // `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&limitToFirst=${LIMIT}`
       `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`
