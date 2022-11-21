@@ -7,10 +7,10 @@ const News = () => {
   const LIMIT = 50;
 
   useEffect(() => {
-    requestComments();
+    requestNews();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  async function requestComments() {
+  async function requestNews() {
     // TODO: adjust link for pagination
     const res = await fetch(
       // `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&limitToFirst=${LIMIT}`
@@ -24,7 +24,7 @@ const News = () => {
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <Grid item sx={{ width: "100%" }}>
-        {news.length !== 0 ? (
+        {news ? (
           news.map((item) => {
             return <Story key={item} item={item} />;
           })

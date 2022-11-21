@@ -1,6 +1,5 @@
 const formatDate = (value) => {
   const date = new Date(value);
-  console.log(date);
 
   return date.toLocaleString(["en-US"], {
     month: "short",
