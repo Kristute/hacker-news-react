@@ -9,11 +9,30 @@ import {
 } from "@mui/material";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
-import formatDate from "../assets/utils/filters";
-import Comment from "./Comment";
+import formatDate from "../../assets/utils/filters";
+import Comment from "./Comment/Comment";
 
-const Story = ({ item }) => {
-  const [state, setState] = useState({ loading: true });
+interface Item {
+  type: string;
+  id: string;
+  by: string;
+  time: number;
+  title: string;
+  score: string;
+  url: string;
+  kids: Array<number>;
+}
+interface Props {
+  item: number,
+}
+
+interface State {
+  loading: boolean;
+  article?: Item
+}
+
+const Story: React.FC<Props> = ({ item }) => {
+  const [state, setState] = useState<State>({ loading: true });
 
   useEffect(() => {
     requestStories();
@@ -23,11 +42,12 @@ const Story = ({ item }) => {
     const res = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
     );
-    const json = await res.json();
-    setState(Object.assign({ loading: false }, json));
-  }
+    const articleFromResponse = await res.json();
+    setState({ loading: false, article: articleFromResponse })
+    }
+  const { loading, article } = state;
 
-  if (state.loading) {
+  if (loading) {
     return (
       <Typography variant="h4" component="div">
         loading …{" "}
@@ -35,16 +55,14 @@ const Story = ({ item }) => {
     );
   }
 
-  const { type, title, id, by, time, score, kids, url } = state;
-
   return (
     <Grid item xs={12} className="story" sx={{ mb: 3 }}>
-      {type !== "comment" ? (
-        <Card sx={{ minWidth: 275 }} id={id}>
+      {article?.type !== "comment" ? (
+        <Card sx={{ minWidth: 275 }} id={article?.id}>
           <CardContent style={{ borderBottom: 1 }}>
             <Typography variant="h5" component="div" sx={{ display: "flex" }}>
               <Typography component="div" sx={{ fontWeight: "bold" }}>
-                {by}
+                {article?.by}
               </Typography>
 
               <Typography
@@ -52,14 +70,14 @@ const Story = ({ item }) => {
                 color="text.secondary"
                 component="div"
               >
-                {type}
+                {article?.type}
               </Typography>
               <Typography
                 variant="body2"
                 sx={{ ml: "auto" }}
                 color="text.secondary"
               >
-                {formatDate(time)}
+                {article ? formatDate(article.time): ''}
               </Typography>
             </Typography>
 
@@ -69,17 +87,17 @@ const Story = ({ item }) => {
               gutterBottom
               sx={{ fontWeight: "bold" }}
             >
-              {title}
+              {article?.title}
             </Typography>
             <Typography component="div" sx={{ mb: 2 }}>
-              <Link href={url}>Read More {">>"}</Link>
+              <Link href={article?.url}>Read More {">>"}</Link>
             </Typography>
             <Typography variant="body2" sx={{ display: "flex" }}>
               <Typography component="div" sx={{ borderRight: 1, pr: 2 }}>
-                <ThumbUpAltOutlinedIcon /> ({score ? score : 0})
+                <ThumbUpAltOutlinedIcon /> ({article?.score ? article?.score : 0})
               </Typography>
               <Typography component="div" sx={{ pl: 2 }}>
-                <ChatOutlinedIcon /> ({kids ? kids.length : 0})
+                <ChatOutlinedIcon /> ({article?.kids ? article?.kids.length : 0})
               </Typography>
             </Typography>
           </CardContent>
@@ -91,10 +109,10 @@ const Story = ({ item }) => {
             }}
           >
             <Divider />
-            {kids && kids.length !== 0 ? (
-              kids.map((kid) => <Comment key={kid} item={kid} />)
+            {article?.kids && article?.kids.length !== 0 ? (
+              article?.kids.map((kid): JSX.Element => <Comment key={kid} item={kid} />)
             ) : (
-              <Typography variant="h7" component="div" sx={{ py: 2 }}>
+              <Typography variant="h6" component="div" sx={{ py: 2 }}>
                 No comments
               </Typography>
             )}

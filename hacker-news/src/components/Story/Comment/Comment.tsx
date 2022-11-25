@@ -1,10 +1,25 @@
 import { useState, useEffect } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import formatDate from "../assets/utils/filters";
+import formatDate from "../../../assets/utils/filters";
 
-const Comment = ({ item }) => {
-  const [state, setState] = useState({ loading: true });
+interface Item {
+  by: string;
+  text: string;
+  time: number;
+}
+
+interface Props {
+  item: number,
+}
+
+interface State {
+  loading: boolean;
+  comment?: Item
+}
+
+const Comment: React.FC<Props> = ({ item }) => {
+  const [state, setState] = useState<State>({ loading: true });
 
   useEffect(() => {
     requestComments();
@@ -14,11 +29,13 @@ const Comment = ({ item }) => {
     const res = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
     );
-    const json = await res.json();
-    setState(Object.assign({ loading: false }, json));
+    const commentFromResponse = await res.json();
+    setState({ loading: false, comment: commentFromResponse });
   }
 
-  if (state.loading) {
+  const { loading, comment } = state;
+
+  if (loading) {
     return (
       <Typography variant="h6" component="div">
         loading …
@@ -26,11 +43,9 @@ const Comment = ({ item }) => {
     );
   }
 
-  const { by, text, time } = state;
-
   return (
     <div>
-      {by ? (
+      {comment?.by ? (
         <Paper sx={{ p: 2, width: "100%", my: 1 }}>
           <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
             <Typography
@@ -48,21 +63,21 @@ const Comment = ({ item }) => {
                 component="div"
                 sx={{ color: "#311b92" }}
               >
-                {by}:
+                {comment?.by}:
               </Typography>
             </Typography>
             <Typography variant="caption" color="inherit">
-              {formatDate(time)}
+              {comment ? formatDate(comment.time) : ''}
             </Typography>
           </Box>
           <Box>
             <Typography variant="caption" color="inherit">
-              {text}
+              {comment?.text}
             </Typography>
           </Box>
         </Paper>
       ) : null}
-      {/* TODO: adjust kids */}
+      {/* TODO: adjust kids (subcomments) */}
       {/* <Typography variant="body2">
              Kids :{kids} <br />
              {parent}

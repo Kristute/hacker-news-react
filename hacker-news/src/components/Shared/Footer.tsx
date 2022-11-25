@@ -1,11 +1,10 @@
-import * as React from "react";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Logo from "../assets/img/hacker-logo.png";
+import Logo from "../../assets/img/hacker-logo.png";
 
-const GuestFooter = () => {
+const Footer = () => {
   return (
     <Paper
       sx={{ marginTop: "calc(10% + 60px)", width: "100%", bottom: 0 }}
@@ -38,7 +37,7 @@ const GuestFooter = () => {
           }}
         >
           <Typography variant="caption" color="initial">
-            {/* TODO: add current year */}© 2022
+            {new Date().getFullYear()}
           </Typography>
         </Box>
       </Container>
@@ -46,4 +45,4 @@ const GuestFooter = () => {
   );
 };
 
-export default GuestFooter;
+export default Footer;

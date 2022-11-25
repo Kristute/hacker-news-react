@@ -1,10 +1,14 @@
 {
+    "parser": "@typescript-eslint/parser",
     "extends": [
         "eslint:recommended",
         "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
         "plugin:react/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:react-hooks/recommended",
+        "plugin:@typescript-eslint/recommended",
         "prettier"
     ],
     "rules": {
@@ -15,7 +19,8 @@
         "react",
         "import",
         "jsx-a11y",
-        "react-hooks"
+        "react-hooks",
+        "@typescript-eslint"
     ],
     "parserOptions": {
         "ecmaVersion": 2022,
@@ -32,6 +37,11 @@
     "settings": {
         "react": {
             "version": "detect"
+        },
+        "import/resolver": {
+            "node": {
+              "extensions": [".ts", ".tsx"]
+            }
         }
     }
 }

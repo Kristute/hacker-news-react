@@ -1,6 +1,6 @@
 import { Grid, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import Story from "./Story";
+import Story from "../Story/Story";
 
 const News = () => {
   const [news, setNews] = useState([]);
