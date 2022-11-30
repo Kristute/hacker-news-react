@@ -6,8 +6,6 @@ import MainLayout from "../layouts/MainLayout";
 import News from "../components/News/News";
 
 const HomePage = () => {
-  //const theme = useState<string>("#e8eaf6");
-
   // let [page, setPage] = useState(1);
   // const PER_PAGE = 24;
 

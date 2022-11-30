@@ -1,0 +1,24 @@
+:root {
+    --primary-blue: rgb(0, 0, 255);
+    --secondary-blue: rgb(96, 96, 182);
+  
+    --text-primary-light: black;
+    --text-primary-dark: white;
+  
+    --text-secondary-light: rgb(70, 70, 70);
+    --text-secondary-dark: rgb(160, 160, 160);
+  
+    --bg-primary-light: #5727b0;
+    --bg-primary-dark: #57dcbe;
+  
+    --bg-secondary-light: rgb(212, 212, 212);
+    --bg-secondary-dark: rgb(34, 34, 34);
+  
+    --bg-navbar-light: rgb(104, 104, 255);
+    --bg-navbar-dark: #6557dc26;
+
+    --bg-header-light: #8827b0;
+    --bg-header-dark: #57cadc;
+
+    --bg-purple-light: #6557dc26;
+}

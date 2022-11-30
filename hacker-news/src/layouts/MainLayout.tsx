@@ -1,6 +1,6 @@
-import * as React from "react";
-// import { useState } from "react";
-import Header from "../components/Shared/Header";
+import { useContext } from "react";
+import { ThemeContext } from '../context/ThemeContext';
+import Header from "../components/Shared/Header/Header";
 import Footer from "../components/Shared/Footer";
 
 type Props = {
@@ -8,11 +8,10 @@ type Props = {
 };
 
 const MainLayout: React.FC<Props> = ({children}) => {
-  //const theme = useState<string>("#e8eaf6");
+  const { theme } = useContext(ThemeContext);
 
   return (
-    // <div style={{ backgroundColor: theme }}>
-    <div>
+    <div className={`main ${theme}`}>
       <Header />
       <div className="flex flex-col flex-grow">
         {children}

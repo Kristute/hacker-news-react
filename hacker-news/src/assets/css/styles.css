@@ -1,0 +1,34 @@
+@import url('./var.css');
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+.light {
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --bg-primary: var(--bg-secondary-light);
+    --bg-secondary: var(--bg-secondary-light);
+    --bg-navbar: var(--bg-navbar-light);
+    --header: var(--bg-header-light);
+    --background: var(--bg-purple-light);
+}
+
+.dark {
+    --primary: var();
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --bg-primary: var(--bg-secondary-dark);
+    --bg-secondary: var(--bg-secondary-dark);
+    --bg-navbar: var(--bg-navbar-dark);
+    --header: var(--bg-header-dark);
+    --background: var(--text-primary-light);
+}
+
+body {
+    margin: 0;
+}
+
+.main {
+    background-color: var(--background);
+}

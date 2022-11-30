@@ -1,23 +1,16 @@
 import * as React from "react";
-import { StrictMode, useState } from "react";
-// import { ThemeContext, Theme } from "./context/ThemeContext/ThemeContext";
-import { ThemeContext } from "./context/ThemeContext/ThemeContext";
+import { StrictMode } from "react";
+import { ThemeProvider } from "./context/ThemeContext";
 import HomePage from "./pages/HomePage";
+import '../src/assets/css/styles.css';
 
-type Props = {
-  children?: React.ReactNode;
-};
-
-const App: React.FC<Props> = ({ children }) => {
-  // const theme = useState<any>("#7986cb");
-  // const [theme, setTheme] = useState(Theme.Light);
-  const [theme, setTheme] = useState<any>("#7986cb");
+const App: React.FC = () => {
 
   return (
     <StrictMode>
-      <ThemeContext.Provider value={{ theme, setTheme }}>
+      <ThemeProvider >
         <HomePage />
-      </ThemeContext.Provider>
+      </ThemeProvider>
     </StrictMode>
   );
 };
