@@ -11,25 +11,25 @@ interface Item {
 }
 
 interface Props {
-  item: number,
+  item: number;
 }
 
 interface State {
   loading: boolean;
-  comment?: Item
+  comment?: Item;
 }
 
 const Comment = ({ item }: Props) => {
   const [state, setState] = useState<State>({ loading: true });
 
-  const requestComments = useCallback(async() => {
+  const requestComments = useCallback(async () => {
     const response = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${item}.json`
     );
     const commentFromResponse = await response.json();
-    
-    setState({ loading: false, comment: commentFromResponse })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+    setState({ loading: false, comment: commentFromResponse });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     requestComments();
@@ -69,7 +69,7 @@ const Comment = ({ item }: Props) => {
               </Typography>
             </Typography>
             <Typography variant="caption" color="inherit">
-              {comment?.time ? formatDate(comment.time) : ''}
+              {comment?.time ? formatDate(comment.time) : ""}
             </Typography>
           </Box>
           <Box>

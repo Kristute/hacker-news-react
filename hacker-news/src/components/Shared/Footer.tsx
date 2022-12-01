@@ -6,7 +6,6 @@ import Paper from "@mui/material/Paper";
 import Logo from "../../assets/img/hacker-logo.png";
 
 const Footer = () => {
-
   return (
     <Paper
       sx={{ marginTop: "calc(10% + 60px)", width: "100%", bottom: 0 }}

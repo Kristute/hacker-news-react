@@ -24,25 +24,25 @@ interface Item {
   kids: Array<number>;
 }
 interface Props {
-  item: number,
+  item: number;
 }
 
 interface State {
   loading: boolean;
-  article?: Item
+  article?: Item;
 }
 
 const Story = ({ item }: Props) => {
   const [state, setState] = useState<State>({ loading: true });
 
-  const requestStories = useCallback(async() => {
+  const requestStories = useCallback(async () => {
     const response = await fetch(
       `https://hacker-news.firebaseio.com/v0/item/${item}.json`
     );
     const articleFromResponse = await response.json();
 
-    setState({ loading: false, article: articleFromResponse })
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    setState({ loading: false, article: articleFromResponse });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     requestStories();
@@ -80,7 +80,7 @@ const Story = ({ item }: Props) => {
                 sx={{ ml: "auto" }}
                 color="text.secondary"
               >
-                {article?.time ? formatDate(article.time): ''}
+                {article?.time ? formatDate(article.time) : ""}
               </Typography>
             </Typography>
 
@@ -97,7 +97,8 @@ const Story = ({ item }: Props) => {
             </Typography>
             <Typography variant="body2" sx={{ display: "flex" }}>
               <Typography component="span" sx={{ borderRight: 1, pr: 2 }}>
-                <ThumbUpAltOutlinedIcon /> ({article?.score ? article?.score : 0})
+                <ThumbUpAltOutlinedIcon /> (
+                {article?.score ? article?.score : 0})
               </Typography>
               <Typography component="span" sx={{ pl: 2 }}>
                 <ChatOutlinedIcon /> ({article?.kids?.length || 0})
@@ -113,7 +114,9 @@ const Story = ({ item }: Props) => {
           >
             <Divider />
             {article?.kids ? (
-              article?.kids.map((kid): JSX.Element => <Comment key={kid} item={kid} />)
+              article?.kids.map(
+                (kid): JSX.Element => <Comment key={kid} item={kid} />
+              )
             ) : (
               <Typography variant="h6" component="div" sx={{ py: 2 }}>
                 No comments

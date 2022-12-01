@@ -7,16 +7,16 @@ const News = () => {
   const [news, setNews] = useState([]);
   const LIMIT = 50;
 
-  const requestNews = useCallback(async() => {
+  const requestNews = useCallback(async () => {
     // TODO: adjust link for pagination
     const response = await fetch(
       // `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&limitToFirst=${LIMIT}`
       `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`
     );
     const newsFromResponse = await response.json();
-    
+
     setNews(Object.values(newsFromResponse));
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     requestNews();

@@ -5,7 +5,6 @@ import { SxProps } from "@mui/material";
 import Logo from "../../assets/img/hacker-logo.png";
 
 const Header = () => {
-
   return (
     <AppBar position="static" sx={{ backgroundColor: "orange" } as SxProps}>
       <Toolbar>
