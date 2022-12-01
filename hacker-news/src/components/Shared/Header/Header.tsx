@@ -1,12 +1,13 @@
 import { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
+
 import Logo from "../../../assets/img/hacker-logo.png";
 import { Button } from "../../Button/Button";
 import { ThemeContext } from "../../../context/ThemeContext";
 import "./Header.css";
 
-const Header: React.FC = () => {
+const Header = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   return (

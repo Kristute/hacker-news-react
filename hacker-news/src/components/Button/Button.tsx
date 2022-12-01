@@ -9,12 +9,7 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  theme,
-  type,
-  onClick,
-  children,
-}) => (
+export const Button = ({ theme, type, onClick, children }: ButtonProps) => (
   <button className={`button button--${type} ${theme}`} onClick={onClick}>
     {children}
   </button>

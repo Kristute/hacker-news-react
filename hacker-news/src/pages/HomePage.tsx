@@ -1,8 +1,8 @@
 import { Box, Container } from "@mui/material";
+
 // import { default as data } from "../services/MOCK_DATA.json";
 import MainLayout from "../layouts/MainLayout";
 // import usePagination from "../hooks/usePagination";
-
 import News from "../components/News/News";
 
 const HomePage = () => {

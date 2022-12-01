@@ -29,7 +29,7 @@ const getTheme = () => {
   }
 };
 
-export const ThemeProvider: React.FC<Props> = ({ children }) => {
+export const ThemeProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState(getTheme);
 
   function toggleTheme() {
