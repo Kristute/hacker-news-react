@@ -2,9 +2,11 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
+
 import Logo from "../../assets/img/hacker-logo.png";
 
 const Footer = () => {
+
   return (
     <Paper
       sx={{ marginTop: "calc(10% + 60px)", width: "100%", bottom: 0 }}
