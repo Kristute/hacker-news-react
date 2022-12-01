@@ -1,24 +1,18 @@
-:root {
-    --primary-blue: rgb(0, 0, 255);
-    --secondary-blue: rgb(96, 96, 182);
-  
+:root {  
     --text-primary-light: black;
     --text-primary-dark: white;
   
     --text-secondary-light: rgb(70, 70, 70);
     --text-secondary-dark: rgb(160, 160, 160);
   
-    --bg-primary-light: #5727b0;
-    --bg-primary-dark: #57dcbe;
+    --bg-primary-light: #8827b0;
+    --bg-primary-dark: #57cadc;
   
-    --bg-secondary-light: rgb(212, 212, 212);
-    --bg-secondary-dark: rgb(34, 34, 34);
+    --bg-secondary-light: #5727b03b;
+    --bg-secondary-dark: #262760;
   
-    --bg-navbar-light: rgb(104, 104, 255);
-    --bg-navbar-dark: #6557dc26;
+    --bg-navbar-light: #5727b0;
+    --bg-navbar-dark: rgb(104, 104, 255);
 
-    --bg-header-light: #8827b0;
-    --bg-header-dark: #57cadc;
-
-    --bg-purple-light: #6557dc26;
+    --bg-purple-light: #5727b021;
 }

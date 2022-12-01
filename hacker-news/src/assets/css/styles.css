@@ -1,32 +1,57 @@
 @import url('./var.css');
 
 *, *::before, *::after {
-    box-sizing: inherit;
+    box-sizing: border-box;
 }
 
-.light {
-    --text-primary: var(--text-primary-light);
-    --text-secondary: var(--text-secondary-light);
-    --bg-primary: var(--bg-secondary-light);
-    --bg-secondary: var(--bg-secondary-light);
-    --bg-navbar: var(--bg-navbar-light);
-    --header: var(--bg-header-light);
-    --background: var(--bg-purple-light);
+* {
+    margin: 0;
 }
 
-.dark {
-    --primary: var();
-    --text-primary: var(--text-primary-dark);
-    --text-secondary: var(--text-secondary-dark);
-    --bg-primary: var(--bg-secondary-dark);
-    --bg-secondary: var(--bg-secondary-dark);
-    --bg-navbar: var(--bg-navbar-dark);
-    --header: var(--bg-header-dark);
-    --background: var(--text-primary-light);
+html, body {
+    height: 100%;
 }
 
 body {
-    margin: 0;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+input, button, textarea, select {
+    font: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+.light {
+    --primary: var(--bg-primary-light);
+    --secondary: var(--bg-secondary-light);
+    --text-primary: var(--text-primary-light);
+    --text-secondary: var(--text-secondary-light);
+    --bg-primary: var(--bg-primary-light);
+    --bg-secondary: var(--bg-secondary-light);
+    --bg-navbar: var(--bg-navbar-light);
+    --background: var(--bg-purple-light);
+    --switch: var(--text-secondary-dark);
+}
+
+.dark {
+    --primary: var(--bg-primary-dark);
+    --secondary: var(--bg-secondary-dark);
+    --text-primary: var(--text-primary-dark);
+    --text-secondary: var(--text-secondary-dark);
+    --bg-primary: var(--bg-primary-dark);
+    --bg-secondary: var(--bg-secondary-dark);
+    --bg-navbar: var(--bg-navbar-dark);
+    --background: var(--text-primary-light);
+    --switch: var(--bg-secondary-dark);
 }
 
 .main {

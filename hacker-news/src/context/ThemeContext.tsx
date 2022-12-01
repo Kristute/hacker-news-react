@@ -1,14 +1,22 @@
-import { useEffect, createContext, useState, SetStateAction, Dispatch } from "react";
+import {
+  useEffect,
+  createContext,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
 type Props = {
-  children?: React.ReactNode
+  children?: React.ReactNode;
 };
 
-type ThemeContext = { theme: string; setTheme: Dispatch<SetStateAction<string>>; toggleTheme: () => void };
+type ThemeContext = {
+  theme: string;
+  setTheme: Dispatch<SetStateAction<string>>;
+  toggleTheme: () => void;
+};
 
-export const ThemeContext = createContext<ThemeContext>(
-  {} as ThemeContext
-);
+export const ThemeContext = createContext<ThemeContext>({} as ThemeContext);
 
 const getTheme = () => {
   const theme = localStorage.getItem("theme");
@@ -30,7 +38,7 @@ export const ThemeProvider: React.FC<Props> = ({ children }) => {
     } else {
       setTheme("dark");
     }
-  };
+  }
 
   useEffect(() => {
     const refreshTheme = () => {

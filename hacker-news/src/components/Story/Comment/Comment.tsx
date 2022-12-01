@@ -10,12 +10,12 @@ interface Item {
 }
 
 interface Props {
-  item: number,
+  item: number;
 }
 
 interface State {
   loading: boolean;
-  comment?: Item
+  comment?: Item;
 }
 
 const Comment: React.FC<Props> = ({ item }) => {
@@ -67,7 +67,7 @@ const Comment: React.FC<Props> = ({ item }) => {
               </Typography>
             </Typography>
             <Typography variant="caption" color="inherit">
-              {comment ? formatDate(comment.time) : ''}
+              {comment ? formatDate(comment.time) : ""}
             </Typography>
           </Box>
           <Box>

@@ -23,12 +23,12 @@ interface Item {
   kids: Array<number>;
 }
 interface Props {
-  item: number,
+  item: number;
 }
 
 interface State {
   loading: boolean;
-  article?: Item
+  article?: Item;
 }
 
 const Story: React.FC<Props> = ({ item }) => {
@@ -43,8 +43,8 @@ const Story: React.FC<Props> = ({ item }) => {
       `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
     );
     const articleFromResponse = await res.json();
-    setState({ loading: false, article: articleFromResponse })
-    }
+    setState({ loading: false, article: articleFromResponse });
+  }
   const { loading, article } = state;
 
   if (loading) {
@@ -77,7 +77,7 @@ const Story: React.FC<Props> = ({ item }) => {
                 sx={{ ml: "auto" }}
                 color="text.secondary"
               >
-                {article ? formatDate(article.time): ''}
+                {article ? formatDate(article.time) : ""}
               </Typography>
             </Typography>
 
@@ -94,10 +94,12 @@ const Story: React.FC<Props> = ({ item }) => {
             </Typography>
             <Typography variant="body2" sx={{ display: "flex" }}>
               <Typography component="div" sx={{ borderRight: 1, pr: 2 }}>
-                <ThumbUpAltOutlinedIcon /> ({article?.score ? article?.score : 0})
+                <ThumbUpAltOutlinedIcon /> (
+                {article?.score ? article?.score : 0})
               </Typography>
               <Typography component="div" sx={{ pl: 2 }}>
-                <ChatOutlinedIcon /> ({article?.kids ? article?.kids.length : 0})
+                <ChatOutlinedIcon /> ({article?.kids ? article?.kids.length : 0}
+                )
               </Typography>
             </Typography>
           </CardContent>
@@ -110,7 +112,9 @@ const Story: React.FC<Props> = ({ item }) => {
           >
             <Divider />
             {article?.kids && article?.kids.length !== 0 ? (
-              article?.kids.map((kid): JSX.Element => <Comment key={kid} item={kid} />)
+              article?.kids.map(
+                (kid): JSX.Element => <Comment key={kid} item={kid} />
+              )
             ) : (
               <Typography variant="h6" component="div" sx={{ py: 2 }}>
                 No comments

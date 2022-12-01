@@ -2,9 +2,9 @@ import { useContext } from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Logo from "../../../assets/img/hacker-logo.png";
-import { Button } from '../../Button/Button';
-import { ThemeContext } from '../../../context/ThemeContext';
-import './Header.css';
+import { Button } from "../../Button/Button";
+import { ThemeContext } from "../../../context/ThemeContext";
+import "./Header.css";
 
 const Header: React.FC = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
@@ -15,12 +15,8 @@ const Header: React.FC = () => {
         <div>
           <img src={Logo} width={"100%"} height={30} alt="Logo" />
         </div>
-        <Button
-          type={'primary'}
-          theme={theme}
-          onClick={toggleTheme}
-          >
-            {theme}
+        <Button type={"switch"} theme={theme} onClick={toggleTheme}>
+          {theme}
         </Button>
       </Toolbar>
     </AppBar>

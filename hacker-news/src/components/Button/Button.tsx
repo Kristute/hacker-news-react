@@ -1,6 +1,6 @@
-import './Button.css';
+import "./Button.css";
 
-type ButtonType = 'primary' | 'secondary';
+type ButtonType = "primary" | "secondary" | "switch";
 
 interface ButtonProps {
   type: ButtonType;
@@ -9,11 +9,13 @@ interface ButtonProps {
   children: React.ReactNode;
 }
 
-export const Button: React.FC<ButtonProps> = ({ theme, type, onClick, children }) => (
-  <button
-    className={`button button--${type} ${theme}`}
-    onClick={onClick}
-  >
+export const Button: React.FC<ButtonProps> = ({
+  theme,
+  type,
+  onClick,
+  children,
+}) => (
+  <button className={`button button--${type} ${theme}`} onClick={onClick}>
     {children}
   </button>
-)
+);
