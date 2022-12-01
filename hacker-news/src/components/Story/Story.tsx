@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import {
   Grid,
   Card,
@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
+
 import formatDate from "../../assets/utils/filters";
 import Comment from "./Comment/Comment";
 
@@ -31,26 +32,28 @@ interface State {
   article?: Item;
 }
 
-const Story: React.FC<Props> = ({ item }) => {
+const Story = ({ item }: Props) => {
   const [state, setState] = useState<State>({ loading: true });
+
+  const requestStories = useCallback(async () => {
+    const response = await fetch(
+      `https://hacker-news.firebaseio.com/v0/item/${item}.json`
+    );
+    const articleFromResponse = await response.json();
+
+    setState({ loading: false, article: articleFromResponse });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     requestStories();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [requestStories]);
 
-  async function requestStories() {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
-    );
-    const articleFromResponse = await res.json();
-    setState({ loading: false, article: articleFromResponse });
-  }
   const { loading, article } = state;
 
   if (loading) {
     return (
-      <Typography variant="h4" component="div">
-        loading …{" "}
+      <Typography variant="h4" component="p">
+        loading …
       </Typography>
     );
   }
@@ -77,7 +80,7 @@ const Story: React.FC<Props> = ({ item }) => {
                 sx={{ ml: "auto" }}
                 color="text.secondary"
               >
-                {article ? formatDate(article.time) : ""}
+                {article?.time ? formatDate(article.time) : ""}
               </Typography>
             </Typography>
 
@@ -89,17 +92,16 @@ const Story: React.FC<Props> = ({ item }) => {
             >
               {article?.title}
             </Typography>
-            <Typography component="div" sx={{ mb: 2 }}>
+            <Typography component="span" sx={{ mb: 2 }}>
               <Link href={article?.url}>Read More {">>"}</Link>
             </Typography>
             <Typography variant="body2" sx={{ display: "flex" }}>
-              <Typography component="div" sx={{ borderRight: 1, pr: 2 }}>
+              <Typography component="span" sx={{ borderRight: 1, pr: 2 }}>
                 <ThumbUpAltOutlinedIcon /> (
                 {article?.score ? article?.score : 0})
               </Typography>
-              <Typography component="div" sx={{ pl: 2 }}>
-                <ChatOutlinedIcon /> ({article?.kids ? article?.kids.length : 0}
-                )
+              <Typography component="span" sx={{ pl: 2 }}>
+                <ChatOutlinedIcon /> ({article?.kids?.length || 0})
               </Typography>
             </Typography>
           </CardContent>
@@ -111,7 +113,7 @@ const Story: React.FC<Props> = ({ item }) => {
             }}
           >
             <Divider />
-            {article?.kids && article?.kids.length !== 0 ? (
+            {article?.kids ? (
               article?.kids.map(
                 (kid): JSX.Element => <Comment key={kid} item={kid} />
               )

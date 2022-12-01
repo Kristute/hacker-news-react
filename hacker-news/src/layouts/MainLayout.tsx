@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+
 import Header from "../components/Shared/Header/Header";
 import Footer from "../components/Shared/Footer";
 
@@ -7,9 +8,9 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const MainLayout: React.FC<Props> = ({ children }) => {
+const MainLayout = ({ children }: Props) => {
   const { theme } = useContext(ThemeContext);
-
+  
   return (
     <div className={`main ${theme}`}>
       <Header />

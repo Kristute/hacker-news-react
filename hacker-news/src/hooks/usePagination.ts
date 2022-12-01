@@ -19,6 +19,7 @@ function usePagination() {
   //   setCurrentPage((currentPage) => Math.max(currentPage - 1, 1));
   // }
 
+  // TODO: useCallback
   // function jump(page) {
   //   const pageNumber = Math.max(1, page);
   //   setCurrentPage((currentPage) => {

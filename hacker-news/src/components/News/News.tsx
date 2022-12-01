@@ -1,35 +1,36 @@
+import { useState, useEffect, useCallback } from "react";
 import { Grid, Typography } from "@mui/material";
-import { useState, useEffect } from "react";
+
 import Story from "../Story/Story";
 
 const News = () => {
   const [news, setNews] = useState([]);
   const LIMIT = 50;
 
-  useEffect(() => {
-    requestNews();
+  const requestNews = useCallback(async () => {
+    // TODO: adjust link for pagination
+    const response = await fetch(
+      // `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&limitToFirst=${LIMIT}`
+      `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`
+    );
+    const newsFromResponse = await response.json();
+
+    setNews(Object.values(newsFromResponse));
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  async function requestNews() {
-    // TODO: adjust link for pagination
-    const res = await fetch(
-      // `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&limitToFirst=${LIMIT}`
-      `https://hacker-news.firebaseio.com/v0/newstories.json?print=pretty&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`
-    );
-    const json = await res.json();
-
-    setNews(Object.values(json));
-  }
+  useEffect(() => {
+    requestNews();
+  }, [requestNews]);
 
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <Grid item sx={{ width: "100%" }}>
-        {news ? (
+        {Object.keys(news).length !== 0 ? (
           news.map((item) => {
             return <Story key={item} item={item} />;
           })
         ) : (
-          <Typography variant="h5" component="div">
+          <Typography variant="h5" component="h3">
             No News Found
           </Typography>
         )}

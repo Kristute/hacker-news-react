@@ -4,7 +4,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const EmptyLayout: React.FC<Props> = ({ children }) => {
+const EmptyLayout = ({ children }: Props) => {
   return <React.Fragment>{children}</React.Fragment>;
 };
 

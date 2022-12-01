@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+
 import formatDate from "../../../assets/utils/filters";
 
 interface Item {
@@ -18,20 +19,21 @@ interface State {
   comment?: Item;
 }
 
-const Comment: React.FC<Props> = ({ item }) => {
+const Comment = ({ item }: Props) => {
   const [state, setState] = useState<State>({ loading: true });
+
+  const requestComments = useCallback(async () => {
+    const response = await fetch(
+      `https://hacker-news.firebaseio.com/v0/item/${item}.json`
+    );
+    const commentFromResponse = await response.json();
+
+    setState({ loading: false, comment: commentFromResponse });
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     requestComments();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
-  async function requestComments() {
-    const res = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${item}.json?print=pretty`
-    );
-    const commentFromResponse = await res.json();
-    setState({ loading: false, comment: commentFromResponse });
-  }
+  }, [requestComments]);
 
   const { loading, comment } = state;
 
@@ -60,14 +62,14 @@ const Comment: React.FC<Props> = ({ item }) => {
               <AccountCircleOutlinedIcon />
               <Typography
                 variant="h6"
-                component="div"
+                component="span"
                 sx={{ color: "#311b92" }}
               >
                 {comment?.by}:
               </Typography>
             </Typography>
             <Typography variant="caption" color="inherit">
-              {comment ? formatDate(comment.time) : ""}
+              {comment?.time ? formatDate(comment.time) : ""}
             </Typography>
           </Box>
           <Box>
