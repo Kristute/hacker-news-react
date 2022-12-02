@@ -1,8 +1,8 @@
 import { useContext } from "react";
 
 import { ThemeContext } from "../context/ThemeContext";
-import Header from "../components/Shared/Header/Header";
-import Footer from "../components/Shared/Footer";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 type Props = {
   children?: React.ReactNode;

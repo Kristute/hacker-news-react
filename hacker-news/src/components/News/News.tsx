@@ -16,7 +16,7 @@ const News = () => {
     const newsFromResponse = await response.json();
 
     setNews(Object.values(newsFromResponse));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     requestNews();

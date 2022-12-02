@@ -29,7 +29,7 @@ const Comment = ({ item }: Props) => {
     const commentFromResponse = await response.json();
 
     setState({ loading: false, comment: commentFromResponse });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [item]);
 
   useEffect(() => {
     requestComments();
@@ -45,40 +45,38 @@ const Comment = ({ item }: Props) => {
     );
   }
 
+  if (comment === undefined) {
+    return null;
+  }
+
   return (
     <div>
-      {comment?.by ? (
-        <Paper sx={{ p: 2, width: "100%", my: 1 }}>
-          <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
-            <Typography
-              variant="body2"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                fontWeight: "bold",
-                flexGrow: 1,
-              }}
-            >
-              <AccountCircleOutlinedIcon />
-              <Typography
-                variant="h6"
-                component="span"
-                sx={{ color: "#311b92" }}
-              >
-                {comment?.by}:
-              </Typography>
+      <Paper sx={{ p: 2, width: "100%", my: 1 }}>
+        <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
+          <Typography
+            variant="body2"
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              fontWeight: "bold",
+              flexGrow: 1,
+            }}
+          >
+            <AccountCircleOutlinedIcon />
+            <Typography variant="h6" component="span" sx={{ color: "#311b92" }}>
+              {comment.by}:
             </Typography>
-            <Typography variant="caption" color="inherit">
-              {comment?.time ? formatDate(comment.time) : ""}
-            </Typography>
-          </Box>
-          <Box>
-            <Typography variant="caption" color="inherit">
-              {comment?.text}
-            </Typography>
-          </Box>
-        </Paper>
-      ) : null}
+          </Typography>
+          <Typography variant="caption" color="inherit">
+            {formatDate(comment.time)}
+          </Typography>
+        </Box>
+        <Box>
+          <Typography variant="caption" color="inherit">
+            {comment.text}
+          </Typography>
+        </Box>
+      </Paper>
       {/* TODO: adjust kids (subcomments) */}
       {/* <Typography variant="body2">
              Kids :{kids} <br />

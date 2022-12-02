@@ -1,6 +1,0 @@
-@import url('../../../assets/css/var.css');
-
-.header {
-    background: var(--bg-navbar);
-    justify-content: space-between;
-}
