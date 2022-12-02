@@ -11,3 +11,4 @@
 - [ ] Logic is separated from UI
 - [ ] Tested common components and services
 - [ ] Google lighthouse score is 100 (exept performance)
+- [ ] Use dark theme
