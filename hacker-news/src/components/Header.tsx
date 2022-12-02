@@ -2,7 +2,7 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import { SxProps } from "@mui/material";
 
-import Logo from "../../assets/img/hacker-logo.png";
+import Logo from "../assets/img/hacker-logo.png";
 
 const Header = () => {
   return (
