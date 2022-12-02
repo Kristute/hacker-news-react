@@ -21,7 +21,7 @@ interface Item {
   title: string;
   score: string;
   url: string;
-  kids: Array<number>;
+  kids?: Array<number>;
 }
 interface Props {
   item: string;
