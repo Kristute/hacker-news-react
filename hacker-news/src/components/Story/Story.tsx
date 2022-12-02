@@ -24,7 +24,7 @@ interface Item {
   kids: Array<number>;
 }
 interface Props {
-  item: number;
+  item: string;
 }
 
 interface State {
@@ -111,7 +111,7 @@ const Story = ({ item }: Props) => {
           }}
         >
           <Divider />
-          {article.kids ? (
+          {article.kids && article.kids.length !== 0 ? (
             article.kids.map(
               (kid): JSX.Element => <Comment key={kid} item={kid} />
             )

@@ -3,8 +3,12 @@ import { Grid, Typography } from "@mui/material";
 
 import Story from "../Story/Story";
 
+interface News {
+  news: []
+}
+
 const News = () => {
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState<News[]>([]);
   const LIMIT = 50;
 
   const requestNews = useCallback(async () => {
@@ -25,8 +29,8 @@ const News = () => {
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <Grid item sx={{ width: "100%" }}>
-        {Object.keys(news).length !== 0 ? (
-          news.map((item) => {
+        {news.length !== 0 ? (
+          (news as []).map((item: string) => {
             return <Story key={item} item={item} />;
           })
         ) : (
