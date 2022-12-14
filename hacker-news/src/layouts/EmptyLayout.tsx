@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import * as React from "react";
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
 };
 
 const EmptyLayout = ({ children }: Props) => {
-  return <React.Fragment>{children}</React.Fragment>;
+  return <Container maxWidth={false}>{children}</Container>;
 };
 
 export default EmptyLayout;
