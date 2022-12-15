@@ -6,28 +6,28 @@ interface Error {
 }
 
 const useApiRequest = (url: string) => {
-    const [data, setData] = useState([]);
-    const [isLoaded, setIsLoaded] = useState(false);
-    const [error, setError] = useState<Error>();
-  
-    const loadData = useCallback(async () => {
-        axios
-        .get(url)
-        .then(response => {
-          setIsLoaded(true);
-          setData(response.data);
-        })
-        .catch(error => {
-          setError(error);
-        });
-       
-    }, [url]);
+  const [data, setData] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<Error>();
 
-    useEffect(() => {
-        loadData();
-    }, [url, loadData]);
-  
-    return { error, isLoaded, data };
-  };
+  const loadData = useCallback(async () => {
+    axios
+      .get(url)
+      .then((response) => {
+        setData(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+      });
+  }, [url]);
 
-  export default useApiRequest;
+  useEffect(() => {
+    loadData();
+  }, [url, loadData]);
+
+  return { error, loading, data };
+};
+
+export default useApiRequest;
