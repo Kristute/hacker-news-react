@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from "react";
 import {
   Grid,
   Card,
@@ -11,6 +10,8 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 import formatDate from "../../assets/utils/filters";
+import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
+import ErrorHandler from "../ErrorHandler";
 import Comment from "./components/Comment";
 
 interface Item {
@@ -21,45 +22,39 @@ interface Item {
   title: string;
   score: string;
   url: string;
-  kids: Array<number>;
+  kids?: Array<number>;
 }
 interface Props {
-  item: number;
+  item: string;
 }
-
-interface State {
-  loading: boolean;
-  article?: Item;
+interface Error {
+  message: string;
 }
 
 const Story = ({ item }: Props) => {
-  const [state, setState] = useState<State>({ loading: true });
+  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const requestStories = useCallback(async () => {
-    const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${item}.json`
-    );
-    const articleFromResponse = await response.json();
+  let article;
 
-    setState({ loading: false, article: articleFromResponse });
-  }, [item]);
-
-  useEffect(() => {
-    requestStories();
-  }, [requestStories]);
-
-  const { loading, article } = state;
-
-  if (loading) {
-    return (
-      <Typography variant="h4" component="p">
-        loading …
-      </Typography>
-    );
-  }
+  const {
+    error,
+    loading,
+    data,
+  }: { error: Error | undefined; loading: boolean; data: [] | undefined } =
+    useApiRequest(API);
+  data ? (article = data as Item) : null;
 
   if (article?.type !== "story") {
     return null;
+  }
+
+  if (error) {
+    return <ErrorHandler message={error.message} />;
+  }
+
+  if (loading) {
+    console.log("load");
+    return <div> Loading... </div>;
   }
 
   return (
@@ -111,7 +106,7 @@ const Story = ({ item }: Props) => {
           }}
         >
           <Divider />
-          {article.kids ? (
+          {article.kids && article.kids.length !== 0 ? (
             article.kids.map(
               (kid): JSX.Element => <Comment key={kid} item={kid} />
             )

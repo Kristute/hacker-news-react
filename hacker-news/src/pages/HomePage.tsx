@@ -4,6 +4,7 @@ import { Box, Container } from "@mui/material";
 import MainLayout from "../layouts/MainLayout";
 // import usePagination from "../hooks/usePagination";
 import News from "../components/News/News";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const HomePage = () => {
   // let [page, setPage] = useState(1);
@@ -21,7 +22,9 @@ const HomePage = () => {
     <MainLayout>
       <Container maxWidth={false} className="main">
         <Box>
-          <News />
+          <ErrorBoundary>
+            <News />
+          </ErrorBoundary>
         </Box>
         <Box p="5">
           {/* TODO: adjust data for pagination */}
