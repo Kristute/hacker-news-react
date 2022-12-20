@@ -14,7 +14,7 @@ import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 import ErrorHandler from "../ErrorHandler";
 import Comment from "./components/Comment";
 
-interface Item {
+interface ArticleData {
   type: string;
   id: string;
   by: string;
@@ -25,24 +25,18 @@ interface Item {
   kids?: Array<number>;
 }
 interface Props {
-  item: string;
-}
-interface Error {
-  message: string;
+  item: number;
 }
 
 const Story = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  let article;
-
   const {
     error,
     loading,
-    data,
-  }: { error: Error | undefined; loading: boolean; data: [] | undefined } =
-    useApiRequest(API);
-  data ? (article = data as Item) : null;
+    data: article,
+  } = useApiRequest<ArticleData>(API);
+
 
   if (article?.type !== "story") {
     return null;
@@ -53,7 +47,6 @@ const Story = ({ item }: Props) => {
   }
 
   if (loading) {
-    console.log("load");
     return <div> Loading... </div>;
   }
 
@@ -108,7 +101,7 @@ const Story = ({ item }: Props) => {
           <Divider />
           {article.kids && article.kids.length !== 0 ? (
             article.kids.map(
-              (kid): JSX.Element => <Comment key={kid} item={kid} />
+              (kid: number) => <Comment key={kid} item={kid} />
             )
           ) : (
             <Typography variant="h6" component="div" sx={{ py: 2 }}>

@@ -5,7 +5,7 @@ import formatDate from "../../../assets/utils/filters";
 import useApiRequest from "../../../hooks/useApiRequest/useApiRequest";
 import ErrorHandler from "../../ErrorHandler";
 
-interface Item {
+interface CommentData {
   by: string;
   text: string;
   time: number;
@@ -15,32 +15,20 @@ interface Props {
   item: number;
 }
 
-interface Error {
-  message: string;
-}
-
 const Comment = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
-
-  let comment;
 
   const {
     error,
     loading,
-    data,
-  }: { error: Error | undefined; loading: boolean; data: [] | undefined } =
-    useApiRequest(API);
-  data ? (comment = data as Item) : null;
-
-  if (comment === undefined) {
-    return null;
-  }
+    data: comment,
+  } = useApiRequest<CommentData>(API);
 
   if (error) {
     return <ErrorHandler message={error.message} />;
   }
 
-  if (loading) {
+  if (loading || !comment) {
     return <div> Loading... </div>;
   }
 

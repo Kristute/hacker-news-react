@@ -5,27 +5,27 @@ interface Error {
   message: string;
 }
 
-const useApiRequest = (url: string) => {
-  const [data, setData] = useState();
+const useApiRequest = <DataType>(url: string) => {
+  const [data, setData] = useState<DataType>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error>();
 
   const loadData = useCallback(async () => {
-    axios
-      .get(url)
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((error) => {
-        setLoading(false);
-        setError(error);
-      });
+    
+    try {
+      const response = await axios.get(url)
+    
+      setData(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      setError(error as Error);
+    }
   }, [url]);
 
   useEffect(() => {
     loadData();
-  }, [url, loadData]);
+  }, [loadData]);
 
   return { error, loading, data };
 };
