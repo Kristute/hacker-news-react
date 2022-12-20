@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from "react";
 import {
   Grid,
   Card,
@@ -11,9 +10,11 @@ import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
 
 import formatDate from "../../assets/utils/filters";
+import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
+import ErrorHandler from "../ErrorHandler";
 import Comment from "./components/Comment";
 
-interface Item {
+interface ArticleData {
   type: string;
   id: string;
   by: string;
@@ -24,42 +25,29 @@ interface Item {
   kids?: Array<number>;
 }
 interface Props {
-  item: string;
-}
-
-interface State {
-  loading: boolean;
-  article?: Item;
+  item: number;
 }
 
 const Story = ({ item }: Props) => {
-  const [state, setState] = useState<State>({ loading: true });
+  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const requestStories = useCallback(async () => {
-    const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${item}.json`
-    );
-    const articleFromResponse = await response.json();
+  const {
+    error,
+    loading,
+    data: article,
+  } = useApiRequest<ArticleData>(API);
 
-    setState({ loading: false, article: articleFromResponse });
-  }, [item]);
-
-  useEffect(() => {
-    requestStories();
-  }, [requestStories]);
-
-  const { loading, article } = state;
-
-  if (loading) {
-    return (
-      <Typography variant="h4" component="p">
-        loading …
-      </Typography>
-    );
-  }
 
   if (article?.type !== "story") {
     return null;
+  }
+
+  if (error) {
+    return <ErrorHandler message={error.message} />;
+  }
+
+  if (loading) {
+    return <div> Loading... </div>;
   }
 
   return (
@@ -113,7 +101,7 @@ const Story = ({ item }: Props) => {
           <Divider />
           {article.kids && article.kids.length !== 0 ? (
             article.kids.map(
-              (kid): JSX.Element => <Comment key={kid} item={kid} />
+              (kid: number) => <Comment key={kid} item={kid} />
             )
           ) : (
             <Typography variant="h6" component="div" sx={{ py: 2 }}>

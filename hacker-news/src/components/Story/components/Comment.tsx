@@ -1,10 +1,11 @@
-import { useState, useEffect, useCallback } from "react";
 import { Box, Paper, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import formatDate from "../../../assets/utils/filters";
+import useApiRequest from "../../../hooks/useApiRequest/useApiRequest";
+import ErrorHandler from "../../ErrorHandler";
 
-interface Item {
+interface CommentData {
   by: string;
   text: string;
   time: number;
@@ -14,39 +15,21 @@ interface Props {
   item: number;
 }
 
-interface State {
-  loading: boolean;
-  comment?: Item;
-}
-
 const Comment = ({ item }: Props) => {
-  const [state, setState] = useState<State>({ loading: true });
+  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const requestComments = useCallback(async () => {
-    const response = await fetch(
-      `https://hacker-news.firebaseio.com/v0/item/${item}.json`
-    );
-    const commentFromResponse = await response.json();
+  const {
+    error,
+    loading,
+    data: comment,
+  } = useApiRequest<CommentData>(API);
 
-    setState({ loading: false, comment: commentFromResponse });
-  }, [item]);
-
-  useEffect(() => {
-    requestComments();
-  }, [requestComments]);
-
-  const { loading, comment } = state;
-
-  if (loading) {
-    return (
-      <Typography variant="h6" component="div">
-        loading …
-      </Typography>
-    );
+  if (error) {
+    return <ErrorHandler message={error.message} />;
   }
 
-  if (comment === undefined) {
-    return null;
+  if (loading || !comment) {
+    return <div> Loading... </div>;
   }
 
   return (
@@ -79,9 +62,9 @@ const Comment = ({ item }: Props) => {
       </Paper>
       {/* TODO: adjust kids (subcomments) */}
       {/* <Typography variant="body2">
-             Kids :{kids} <br />
-             {parent}
-           </Typography> */}
+              Kids :{kids} <br />
+              {parent}
+            </Typography> */}
     </div>
   );
 };

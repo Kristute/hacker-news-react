@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 // import usePagination from "../hooks/usePagination";
 
 import News from "../components/News/News";
+import ErrorBoundary from "../components/ErrorBoundary";
 
 const HomePage = () => {
   //const theme = useState<string>("#e8eaf6");
@@ -23,7 +24,9 @@ const HomePage = () => {
     <MainLayout>
       <Container maxWidth={false} className="main">
         <Box>
-          <News />
+          <ErrorBoundary>
+            <News />
+          </ErrorBoundary>
         </Box>
         <Box p="5">
           {/* TODO: adjust data for pagination */}
