@@ -24,16 +24,11 @@ const Comment = ({ item }: Props) => {
     data: comment,
   } = useApiRequest<CommentData>(API);
 
-
-  if (comment === undefined) {
-    return null;
-  }
-
   if (error) {
     return <ErrorHandler message={error.message} />;
   }
 
-  if (loading) {
+  if (loading || !comment) {
     return <div> Loading... </div>;
   }
 

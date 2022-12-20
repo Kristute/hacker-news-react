@@ -25,7 +25,7 @@ const useApiRequest = <DataType>(url: string) => {
 
   useEffect(() => {
     loadData();
-  }, [url, loadData]);
+  }, [loadData]);
 
   return { error, loading, data };
 };
