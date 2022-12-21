@@ -8,9 +8,11 @@
       "emitDecoratorMetadata": true,
       "noUnusedLocals": true,
       "pretty": true,
+      
       "lib": [
         "esnext",
-        "dom"
+        "dom",
+        "dom.iterable",
       ],
       "jsx": "react-jsx",
       "typeRoots" : ["node_modules/@types", "src/types"],

@@ -1,16 +1,17 @@
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import { SxProps } from "@mui/material";
+import { Box } from "@mui/material";
+// import colors from '../context/ThemeContext/colors';
 
 import Logo from "../assets/img/hacker-logo.png";
 
 const Header = () => {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "orange" } as SxProps}>
+    <AppBar position="static">
       <Toolbar>
-        <div>
+        <Box>
           <img src={Logo} width={"100%"} height={30} alt="Logo" />
-        </div>
+        </Box>
       </Toolbar>
     </AppBar>
   );

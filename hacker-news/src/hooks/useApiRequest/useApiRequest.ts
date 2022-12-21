@@ -11,10 +11,9 @@ const useApiRequest = <DataType>(url: string) => {
   const [error, setError] = useState<Error>();
 
   const loadData = useCallback(async () => {
-    
     try {
-      const response = await axios.get(url)
-    
+      const response = await axios.get(url);
+
       setData(response.data);
       setLoading(false);
     } catch (error) {

@@ -1,4 +1,4 @@
-import { Box, Paper, Typography } from "@mui/material";
+import { Box, Paper, SxProps, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import formatDate from "../../../assets/utils/filters";
@@ -18,11 +18,7 @@ interface Props {
 const Comment = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const {
-    error,
-    loading,
-    data: comment,
-  } = useApiRequest<CommentData>(API);
+  const { error, loading, data: comment } = useApiRequest<CommentData>(API);
 
   if (error) {
     return <ErrorHandler message={error.message} />;
@@ -35,18 +31,23 @@ const Comment = ({ item }: Props) => {
   return (
     <div>
       <Paper sx={{ p: 2, width: "100%", my: 1 }}>
-        <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
+        <Box
+          color="inherit"
+          sx={{ display: "flex", width: "100%", mr: 1 } as SxProps}
+        >
           <Typography
             variant="body2"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              fontWeight: "bold",
-              flexGrow: 1,
-            }}
+            sx={
+              {
+                display: "flex",
+                alignItems: "center",
+                fontWeight: "bold",
+                flexGrow: 1,
+              } as SxProps
+            }
           >
             <AccountCircleOutlinedIcon />
-            <Typography variant="h6" component="span" sx={{ color: "#311b92" }}>
+            <Typography variant="h6" component="span">
               {comment.by}:
             </Typography>
           </Typography>
