@@ -13,13 +13,12 @@ const News = () => {
   const LIMIT = 50;
   const API = `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`;
 
-  const {
-    error,
-    loading,
-    data,
-  } = useApiRequest<NewsData>(API);
+  const { error, loading, data } = useApiRequest<NewsData>(API);
 
-  const stories = useMemo(() => data ? Object.values(data) as Array<number> : [], [data]);
+  const stories = useMemo(
+    () => (data ? (Object.values(data) as Array<number>) : []),
+    [data]
+  );
 
   if (error) {
     return <ErrorHandler message={error?.message} />;
@@ -33,8 +32,8 @@ const News = () => {
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <Grid item sx={{ width: "100%" }}>
         {stories.map((item: number) => {
-              return <Story key={item} item={item} />;
-            })}
+          return <Story key={item} item={item} />;
+        })}
       </Grid>
     </Grid>
   );

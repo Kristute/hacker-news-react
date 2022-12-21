@@ -31,12 +31,7 @@ interface Props {
 const Story = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const {
-    error,
-    loading,
-    data: article,
-  } = useApiRequest<ArticleData>(API);
-
+  const { error, loading, data: article } = useApiRequest<ArticleData>(API);
 
   if (article?.type !== "story") {
     return null;
@@ -100,9 +95,7 @@ const Story = ({ item }: Props) => {
         >
           <Divider />
           {article.kids && article.kids.length !== 0 ? (
-            article.kids.map(
-              (kid: number) => <Comment key={kid} item={kid} />
-            )
+            article.kids.map((kid: number) => <Comment key={kid} item={kid} />)
           ) : (
             <Typography variant="h6" component="div" sx={{ py: 2 }}>
               No comments

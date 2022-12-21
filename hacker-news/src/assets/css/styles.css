@@ -1,5 +1,3 @@
-@import url('./var.css');
-
 *, *::before, *::after {
     box-sizing: border-box;
 }
@@ -28,32 +26,4 @@ input, button, textarea, select {
 
 p, h1, h2, h3, h4, h5, h6 {
     overflow-wrap: break-word;
-}
-
-.light {
-    --primary: var(--bg-primary-light);
-    --secondary: var(--bg-secondary-light);
-    --text-primary: var(--text-primary-light);
-    --text-secondary: var(--text-secondary-light);
-    --bg-primary: var(--bg-primary-light);
-    --bg-secondary: var(--bg-secondary-light);
-    --bg-navbar: var(--bg-navbar-light);
-    --background: var(--bg-purple-light);
-    --switch: var(--text-secondary-dark);
-}
-
-.dark {
-    --primary: var(--bg-primary-dark);
-    --secondary: var(--bg-secondary-dark);
-    --text-primary: var(--text-primary-dark);
-    --text-secondary: var(--text-secondary-dark);
-    --bg-primary: var(--bg-primary-dark);
-    --bg-secondary: var(--bg-secondary-dark);
-    --bg-navbar: var(--bg-navbar-dark);
-    --background: var(--text-primary-light);
-    --switch: var(--bg-secondary-dark);
-}
-
-.main {
-    background-color: var(--background);
 }

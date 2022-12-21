@@ -1,8 +1,6 @@
 import { Outlet } from "react-router-dom";
-
 import { useContext } from "react";
-
-import { ThemeContext } from "../context/ThemeContext";
+import { ThemeContext } from "../context/ThemeContext/ThemeContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Container } from "@mui/material";
@@ -12,7 +10,7 @@ type Props = {
 };
 
 const MainLayout = ({ children }: Props) => {
-  const { theme } = useContext(ThemeContext);
+  const { themeTitle } = useContext(ThemeContext);
 
   return (
     <Container
@@ -20,7 +18,7 @@ const MainLayout = ({ children }: Props) => {
       sx={{ height: "100vh", display: "flex", flexDirection: "column" }}
     >
       <Header />
-      <div className={`flex flex-col flex-grow main ${theme}`} >
+      <div className={`flex flex-col flex-grow main ${themeTitle}`}>
         {children}
       </div>
       <Footer />
