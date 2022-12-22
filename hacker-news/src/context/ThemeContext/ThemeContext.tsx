@@ -1,62 +1,14 @@
-import { createContext, useContext, useState, useMemo } from "react";
-import IconButton from "@mui/material/IconButton";
-import Box from "@mui/material/Box";
-import {
-  useTheme,
-  ThemeProvider,
-  createTheme,
-  SxProps,
-} from "@mui/material/styles";
+import { useState, useMemo } from "react";
+
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { PaletteMode } from "@mui/material";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
-import Brightness7Icon from "@mui/icons-material/Brightness7";
-import getDesignTokens from "./colors";
+
+import { ColorModeContext } from "./ColorModeContext";
+import { lightTheme } from "./themes/light";
+import { darkTheme } from "./themes/dark";
 
 type Props = {
   children?: React.ReactNode;
-};
-
-// eslint-disable-next-line @typescript-eslint/no-empty-function
-const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
-export const ThemeSwitch = () => {
-  const theme = useTheme();
-  const colorMode = useContext(ColorModeContext);
-  return (
-    <Box
-      sx={
-        {
-          display: "flex",
-          width: "auto",
-          alignItems: "center",
-          justifyContent: "right",
-          color: "text.primary",
-        } as SxProps
-      }
-    >
-      <Box
-        onClick={colorMode.toggleColorMode}
-        sx={
-          {
-            bgcolor: "background.default",
-            px: 2,
-            py: 1,
-            borderRadius: 1,
-            cursor: "pointer",
-          } as SxProps
-        }
-      >
-        {theme.palette.mode} mode
-        <IconButton sx={{ ml: 1 } as SxProps} color="inherit">
-          {theme.palette.mode === "dark" ? (
-            <Brightness7Icon />
-          ) : (
-            <Brightness4Icon />
-          )}
-        </IconButton>
-      </Box>
-    </Box>
-  );
 };
 
 export const ToggleColorMode = ({ children }: Props) => {
@@ -74,7 +26,10 @@ export const ToggleColorMode = ({ children }: Props) => {
   );
 
   // Update the theme only if the mode changes
-  const theme = useMemo(() => createTheme(getDesignTokens(mode)), [mode]);
+  const theme = useMemo(
+    () => createTheme(mode === "light" ? lightTheme : darkTheme),
+    [mode]
+  );
 
   return (
     <ColorModeContext.Provider value={colorMode}>

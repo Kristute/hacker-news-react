@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { Grid, SxProps } from "@mui/material";
+import { Grid } from "@mui/material";
 
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 import Story from "../Story/Story";
@@ -29,8 +29,8 @@ const News = () => {
   }
 
   return (
-    <Grid container spacing={2} sx={{ marginTop: 2 } as SxProps}>
-      <Grid item sx={{ width: "100%" } as SxProps}>
+    <Grid container spacing={2} sx={{ marginTop: 2 }}>
+      <Grid item sx={{ width: "100%" }}>
         {stories.map((item: number) => {
           return <Story key={item} item={item} />;
         })}

@@ -1,4 +1,4 @@
-import { Alert, AlertTitle, SxProps } from "@mui/material";
+import { Alert, AlertTitle } from "@mui/material";
 
 interface Props {
   message: string;
@@ -6,10 +6,7 @@ interface Props {
 
 const ErrorHandler = ({ message }: Props) => {
   return (
-    <Alert
-      severity="error"
-      sx={{ marginTop: "20px", marginBottom: "20px" } as SxProps}
-    >
+    <Alert severity="error" sx={{ marginTop: "20px", marginBottom: "20px" }}>
       <AlertTitle>Error:</AlertTitle>
       <pre>{message}</pre>
     </Alert>

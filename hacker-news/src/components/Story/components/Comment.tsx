@@ -1,4 +1,4 @@
-import { Box, Paper, SxProps, Typography } from "@mui/material";
+import { Box, Paper, Typography } from "@mui/material";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 
 import formatDate from "../../../assets/utils/filters";
@@ -31,23 +31,18 @@ const Comment = ({ item }: Props) => {
   return (
     <div>
       <Paper sx={{ p: 2, width: "100%", my: 1 }}>
-        <Box
-          color="inherit"
-          sx={{ display: "flex", width: "100%", mr: 1 } as SxProps}
-        >
+        <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
           <Typography
             variant="body2"
-            sx={
-              {
-                display: "flex",
-                alignItems: "center",
-                fontWeight: "bold",
-                flexGrow: 1,
-              } as SxProps
-            }
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              fontWeight: "bold",
+              flexGrow: 1,
+            }}
           >
             <AccountCircleOutlinedIcon />
-            <Typography variant="h6" color="text.color1" component="span">
+            <Typography variant="h6" color="primary.dark" component="span">
               {comment.by}:
             </Typography>
           </Typography>
@@ -57,7 +52,7 @@ const Comment = ({ item }: Props) => {
         </Box>
         <Box>
           <Typography variant="caption" color="inherit">
-            {comment.text}
+            <div dangerouslySetInnerHTML={{ __html: comment.text }} />
           </Typography>
         </Box>
       </Paper>

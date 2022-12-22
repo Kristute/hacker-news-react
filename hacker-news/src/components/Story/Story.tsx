@@ -5,7 +5,6 @@ import {
   Link,
   Typography,
   Divider,
-  SxProps,
 } from "@mui/material";
 import ThumbUpAltOutlinedIcon from "@mui/icons-material/ThumbUpAltOutlined";
 import ChatOutlinedIcon from "@mui/icons-material/ChatOutlined";
@@ -47,32 +46,24 @@ const Story = ({ item }: Props) => {
   }
 
   return (
-    <Grid item xs={12} className="story" sx={{ mb: 3 } as SxProps}>
-      <Card sx={{ minWidth: 275 } as SxProps} id={article.id}>
+    <Grid item xs={12} className="story" sx={{ mb: 3 }}>
+      <Card sx={{ minWidth: 275 }} id={article.id}>
         <CardContent style={{ borderBottom: 1 }}>
-          <Typography
-            variant="h5"
-            component="div"
-            sx={{ display: "flex" } as SxProps}
-          >
+          <Typography variant="h5" component="div" sx={{ display: "flex" }}>
             <Typography
               component="div"
-              color="text.color1"
-              sx={{ fontWeight: "bold" } as SxProps}
+              color="secondary.light"
+              sx={{ fontWeight: "bold" }}
             >
               {article.by}
             </Typography>
 
-            <Typography
-              sx={{ ml: 1.5 } as SxProps}
-              color="text.secondary"
-              component="div"
-            >
+            <Typography sx={{ ml: 1.5 }} color="text.secondary" component="div">
               {article.type}
             </Typography>
             <Typography
               variant="body2"
-              sx={{ ml: "auto" } as SxProps}
+              sx={{ ml: "auto" }}
               color="text.secondary"
             >
               {formatDate(article.time)}
@@ -83,28 +74,24 @@ const Story = ({ item }: Props) => {
             variant="h5"
             component="h2"
             gutterBottom
-            sx={{ fontWeight: "bold" } as SxProps}
+            sx={{ fontWeight: "bold" }}
           >
             {article.title}
           </Typography>
-          <Typography component="span" sx={{ mb: 2 } as SxProps}>
-            <Link href={article.url} color="text.link">
+          <Typography component="span" sx={{ mb: 2 }}>
+            <Link href={article.url} color="primary.light">
               Read More {">>"}
             </Link>
           </Typography>
-          <Typography variant="body2" sx={{ display: "flex" } as SxProps}>
+          <Typography variant="body2" sx={{ display: "flex" }}>
             <Typography
               component="span"
-              color="text.color1"
-              sx={{ borderRight: 1, pr: 2 } as SxProps}
+              color="secondary.light"
+              sx={{ borderRight: 1, pr: 2 }}
             >
               <ThumbUpAltOutlinedIcon />({article.score || 0})
             </Typography>
-            <Typography
-              component="span"
-              color="text.color1"
-              sx={{ pl: 2 } as SxProps}
-            >
+            <Typography component="span" color="secondary.light" sx={{ pl: 2 }}>
               <ChatOutlinedIcon /> ({article.kids?.length || 0})
             </Typography>
           </Typography>
@@ -123,8 +110,8 @@ const Story = ({ item }: Props) => {
             <Typography
               variant="h6"
               component="div"
-              color="text.secondary"
-              sx={{ py: 2 } as SxProps}
+              color="secondary.light"
+              sx={{ py: 2 }}
             >
               No comments
             </Typography>
