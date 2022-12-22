@@ -1,9 +1,10 @@
 import { ThemeOptions } from "@mui/material";
 import { amber, deepPurple, grey } from "@mui/material/colors";
+import { THEME } from "../ColorModeContext";
 
 export const darkTheme: ThemeOptions = {
   palette: {
-    mode: "dark",
+    mode: THEME.DARK,
     primary: {
       main: deepPurple[500],
       dark: deepPurple[100],

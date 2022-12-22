@@ -1,9 +1,10 @@
 import { ThemeOptions } from "@mui/material";
 import { amber, grey } from "@mui/material/colors";
+import { THEME } from "../ColorModeContext";
 
 export const lightTheme: ThemeOptions = {
   palette: {
-    mode: "light",
+    mode: THEME.LIGHT,
     primary: {
       main: amber[500],
       dark: amber[900],

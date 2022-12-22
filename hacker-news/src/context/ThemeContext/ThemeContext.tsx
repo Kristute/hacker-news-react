@@ -1,9 +1,9 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { PaletteMode } from "@mui/material";
 
-import { ColorModeContext } from "./ColorModeContext";
+import { ColorModeContext, THEME } from "./ColorModeContext";
 import { lightTheme } from "./themes/light";
 import { darkTheme } from "./themes/dark";
 
@@ -12,27 +12,31 @@ type Props = {
 };
 
 export const ToggleColorMode = ({ children }: Props) => {
-  const [mode, setMode] = useState<PaletteMode>("light");
-  const colorMode = useMemo(
+  const [mode, setMode] = useState<PaletteMode>(THEME.LIGHT);
+
+  // The dark mode switch would invoke this method
+  const toggleColorMode = useCallback(() => {
+    setMode((prevMode: PaletteMode) =>
+      prevMode === THEME.LIGHT ? THEME.DARK : THEME.LIGHT
+    );
+  }, []);
+
+  const value = useMemo(
     () => ({
-      // The dark mode switch would invoke this method
-      toggleColorMode: () => {
-        setMode((prevMode: PaletteMode) =>
-          prevMode === "light" ? "dark" : "light"
-        );
-      },
+      currentTheme: mode,
+      toggleColorMode,
     }),
-    []
+    [mode, toggleColorMode]
   );
 
   // Update the theme only if the mode changes
   const theme = useMemo(
-    () => createTheme(mode === "light" ? lightTheme : darkTheme),
+    () => createTheme(mode === THEME.LIGHT ? lightTheme : darkTheme),
     [mode]
   );
 
   return (
-    <ColorModeContext.Provider value={colorMode}>
+    <ColorModeContext.Provider value={value}>
       <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
