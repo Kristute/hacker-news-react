@@ -19,7 +19,7 @@ type Props = {
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
-const ThemeSwitch = () => {
+export const ThemeSwitch = () => {
   const theme = useTheme();
   const colorMode = useContext(ColorModeContext);
   return (
@@ -31,7 +31,6 @@ const ThemeSwitch = () => {
           alignItems: "center",
           justifyContent: "right",
           color: "text.primary",
-          m: 3,
         } as SxProps
       }
     >
@@ -79,10 +78,7 @@ export const ToggleColorMode = ({ children }: Props) => {
 
   return (
     <ColorModeContext.Provider value={colorMode}>
-      <ThemeProvider theme={theme}>
-        <ThemeSwitch />
-        {children}
-      </ThemeProvider>
+      <ThemeProvider theme={theme}>{children}</ThemeProvider>
     </ColorModeContext.Provider>
   );
 };

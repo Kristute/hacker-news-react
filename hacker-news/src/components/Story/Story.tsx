@@ -55,7 +55,11 @@ const Story = ({ item }: Props) => {
             component="div"
             sx={{ display: "flex" } as SxProps}
           >
-            <Typography component="div" sx={{ fontWeight: "bold" } as SxProps}>
+            <Typography
+              component="div"
+              color="text.color1"
+              sx={{ fontWeight: "bold" } as SxProps}
+            >
               {article.by}
             </Typography>
 
@@ -84,16 +88,23 @@ const Story = ({ item }: Props) => {
             {article.title}
           </Typography>
           <Typography component="span" sx={{ mb: 2 } as SxProps}>
-            <Link href={article.url}>Read More {">>"}</Link>
+            <Link href={article.url} color="text.link">
+              Read More {">>"}
+            </Link>
           </Typography>
           <Typography variant="body2" sx={{ display: "flex" } as SxProps}>
             <Typography
               component="span"
+              color="text.color1"
               sx={{ borderRight: 1, pr: 2 } as SxProps}
             >
               <ThumbUpAltOutlinedIcon />({article.score || 0})
             </Typography>
-            <Typography component="span" sx={{ pl: 2 } as SxProps}>
+            <Typography
+              component="span"
+              color="text.color1"
+              sx={{ pl: 2 } as SxProps}
+            >
               <ChatOutlinedIcon /> ({article.kids?.length || 0})
             </Typography>
           </Typography>
@@ -109,7 +120,12 @@ const Story = ({ item }: Props) => {
           {article.kids && article.kids.length !== 0 ? (
             article.kids.map((kid: number) => <Comment key={kid} item={kid} />)
           ) : (
-            <Typography variant="h6" component="div" sx={{ py: 2 } as SxProps}>
+            <Typography
+              variant="h6"
+              component="div"
+              color="text.secondary"
+              sx={{ py: 2 } as SxProps}
+            >
               No comments
             </Typography>
           )}
