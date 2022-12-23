@@ -31,12 +31,7 @@ interface Props {
 const Story = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const {
-    error,
-    loading,
-    data: article,
-  } = useApiRequest<ArticleData>(API);
-
+  const { error, loading, data: article } = useApiRequest<ArticleData>(API);
 
   if (article?.type !== "story") {
     return null;
@@ -55,7 +50,11 @@ const Story = ({ item }: Props) => {
       <Card sx={{ minWidth: 275 }} id={article.id}>
         <CardContent style={{ borderBottom: 1 }}>
           <Typography variant="h5" component="div" sx={{ display: "flex" }}>
-            <Typography component="div" sx={{ fontWeight: "bold" }}>
+            <Typography
+              component="div"
+              color="secondary.light"
+              sx={{ fontWeight: "bold" }}
+            >
               {article.by}
             </Typography>
 
@@ -80,13 +79,19 @@ const Story = ({ item }: Props) => {
             {article.title}
           </Typography>
           <Typography component="span" sx={{ mb: 2 }}>
-            <Link href={article.url}>Read More {">>"}</Link>
+            <Link href={article.url} color="primary.light">
+              Read More {">>"}
+            </Link>
           </Typography>
           <Typography variant="body2" sx={{ display: "flex" }}>
-            <Typography component="span" sx={{ borderRight: 1, pr: 2 }}>
+            <Typography
+              component="span"
+              color="secondary.light"
+              sx={{ borderRight: 1, pr: 2 }}
+            >
               <ThumbUpAltOutlinedIcon />({article.score || 0})
             </Typography>
-            <Typography component="span" sx={{ pl: 2 }}>
+            <Typography component="span" color="secondary.light" sx={{ pl: 2 }}>
               <ChatOutlinedIcon /> ({article.kids?.length || 0})
             </Typography>
           </Typography>
@@ -100,11 +105,14 @@ const Story = ({ item }: Props) => {
         >
           <Divider />
           {article.kids && article.kids.length !== 0 ? (
-            article.kids.map(
-              (kid: number) => <Comment key={kid} item={kid} />
-            )
+            article.kids.map((kid: number) => <Comment key={kid} item={kid} />)
           ) : (
-            <Typography variant="h6" component="div" sx={{ py: 2 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              color="secondary.light"
+              sx={{ py: 2 }}
+            >
               No comments
             </Typography>
           )}

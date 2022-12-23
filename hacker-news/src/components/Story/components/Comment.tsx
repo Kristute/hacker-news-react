@@ -9,6 +9,7 @@ interface CommentData {
   by: string;
   text: string;
   time: number;
+  kids?: [];
 }
 
 interface Props {
@@ -18,11 +19,7 @@ interface Props {
 const Comment = ({ item }: Props) => {
   const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const {
-    error,
-    loading,
-    data: comment,
-  } = useApiRequest<CommentData>(API);
+  const { error, loading, data: comment } = useApiRequest<CommentData>(API);
 
   if (error) {
     return <ErrorHandler message={error.message} />;
@@ -33,7 +30,7 @@ const Comment = ({ item }: Props) => {
   }
 
   return (
-    <div>
+    <Box>
       <Paper sx={{ p: 2, width: "100%", my: 1 }}>
         <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
           <Typography
@@ -46,26 +43,26 @@ const Comment = ({ item }: Props) => {
             }}
           >
             <AccountCircleOutlinedIcon />
-            <Typography variant="h6" component="span" sx={{ color: "#311b92" }}>
+            <Typography variant="h6" color="primary.dark" component="span">
               {comment.by}:
             </Typography>
           </Typography>
-          <Typography variant="caption" color="inherit">
+          <Typography variant="caption" color="text.secondary">
             {formatDate(comment.time)}
           </Typography>
         </Box>
         <Box>
           <Typography variant="caption" color="inherit">
-            {comment.text}
+            <div dangerouslySetInnerHTML={{ __html: comment.text }} />
           </Typography>
         </Box>
       </Paper>
-      {/* TODO: adjust kids (subcomments) */}
-      {/* <Typography variant="body2">
-              Kids :{kids} <br />
-              {parent}
-            </Typography> */}
-    </div>
+      {comment.kids?.map((kid: number) => (
+        <Box key={kid} sx={{ pl: "20px" }}>
+          <Comment key={kid} item={kid} />
+        </Box>
+      ))}
+    </Box>
   );
 };
 
