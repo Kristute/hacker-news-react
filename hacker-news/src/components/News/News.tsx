@@ -13,11 +13,16 @@ interface NewsData {
 const News = () => {
   const pageNumberLimit = 5;
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [startPage, setStartPage] = useState<number>(1);
+  const [endPage, setEndPage] = useState<number>(11);
   const [maxPageLimit, setMaxPageLimit] = useState<number>(5);
   const [minPageLimit, setMinPageLimit] = useState<number>(0);
-    
+
   const onPageChange= (pageNumber: number) => {
     setCurrentPage(pageNumber);
+    // 10 items per page
+    countStartPage(pageNumber);
+    countEndPage(pageNumber);
   }
 
   const onPrevClick = () => {
@@ -36,7 +41,7 @@ const News = () => {
       setCurrentPage(prev=>prev+1);
     }
 
-  const API = `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${currentPage}"&endAt="80"`;
+  const API = `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${startPage}"&endAt="${endPage}"`;
 
   const { error, loading, data } = useApiRequest<NewsData>(API);
 
@@ -44,6 +49,21 @@ const News = () => {
     () => (data ? (Object.values(data) as Array<number>) : []),
     [data]
   );
+
+  const countStartPage = (pageNumber: number) => {
+    const start = pageNumber === 1 ? 1 : (pageNumber - 1) * 11;
+    setStartPage(start);
+
+    return start;
+  }
+
+  const countEndPage = (pageNumber: number) => {
+    const end = pageNumber === 1 ? pageNumber + 9 : (pageNumber * 11) - 1;
+    console.log('end', end)
+    setEndPage(end);
+
+    return end;
+  };
 
 
   const paginationAttributes = {

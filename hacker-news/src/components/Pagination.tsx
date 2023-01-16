@@ -6,9 +6,9 @@ interface paginationAttributes {
     maxPageLimit: number;
     minPageLimit: number;
     response: number[];
-    onPrevClick: any;
-    onNextClick: any;
-    onPageChange: any;
+    onPrevClick: () => void;
+    onNextClick: () => void;
+    onPageChange: (number: number) => void;
 }
   
 
