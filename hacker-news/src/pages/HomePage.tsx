@@ -5,18 +5,16 @@ import News from "../components/News/News";
 import ErrorBoundary from "../components/ErrorBoundary";
 
 const HomePage = () => {
-
   return (
     <MainLayout>
       <Container maxWidth={false} className="main">
-      <Box
-                sx={{
-                    margin: "auto",
-                    width: "fit-content",
-                    alignItems: "center",
-                }}
-            >
-            </Box>
+        <Box
+          sx={{
+            margin: "auto",
+            width: "fit-content",
+            alignItems: "center",
+          }}
+        ></Box>
         <Box>
           <ErrorBoundary>
             <News />
