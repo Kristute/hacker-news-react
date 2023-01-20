@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 
@@ -9,21 +9,39 @@ interface NewsData {
   id: number;
 }
 
+interface AllNewsData {
+  length: [];
+}
+
 const usePagination = () => {
+  // how many pages are shown in Pagination, others - in dots
   const pageNumberLimit = 5;
-  const statTotalPages = 50;
+  const newsPerPage = 10;
+  const [pageItems, setpageItems] = useState<number>(1);
+  const totalPages = pageItems - 1;
+  const allStoriesApi = 'https://hacker-news.firebaseio.com/v0/newstories.json';
+  const { data: total} = useApiRequest<AllNewsData>(allStoriesApi);  
   const firstAPI = `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="1"&endAt="10"`;
   const [API, setAPI] = useState<string>(firstAPI);
-  const totalPages = statTotalPages - 1;
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // const [startPage, setStartPage] = useState<number>(1);
-  // const [endPage, setEndPage] = useState<number>(11);
   const [maxPageLimit, setMaxPageLimit] = useState<number>(5);
   const [minPageLimit, setMinPageLimit] = useState<number>(0);
 
   const onPageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+  const getPages = useCallback(() => {
+  if (total) {
+    setpageItems(Number(total?.length) / newsPerPage);
+  }
+
+  }, [total]);
+
+  useEffect(() => {
+    getPages();
+  }, [getPages]);
+
 
   const onPrevClick = () => {
     if ((currentPage - 1) % pageNumberLimit === 0) {
