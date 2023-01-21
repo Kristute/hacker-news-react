@@ -2,13 +2,13 @@
 
 ## TODO
 
-- [ ] Created services for data gathering and mapping
-- [ ] Created common components using material ui
-- [ ] Displays list of articles
-- [ ] Implemented pagination
-- [ ] Display comments for stories
-- [ ] Site is responsive
-- [ ] Logic is separated from UI
+- [x] Created services for data gathering and mapping
+- [x] Created common components using material ui
+- [x] Displays list of articles
+- [x] Implemented pagination
+- [x] Display comments for stories
+- [x] Site is responsive
+- [x] Logic is separated from UI
 - [ ] Tested common components and services
 - [ ] Google lighthouse score is 100 (exept performance)
-- [ ] Use dark theme
+- [x] Use dark theme
