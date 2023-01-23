@@ -1,29 +1,16 @@
-// import { useMemo } from "react";
 import { Grid } from "@mui/material";
-
-// import { useState } from "react";
-
-import usePagination from "../../hooks/usePagination/usePagination";
-import PaginationItem from "../Pagination";
+import PaginationItem from "../PaginationItem";
 import Story from "../Story/Story";
 import ErrorHandler from "../ErrorHandler";
+import usePagination from "../../hooks/usePagination/usePagination";
 
 const News = () => {
-  const { data, error, loading } = usePagination();
-  console.log('data', data)
-  //setStories(Object.values(data) as Array<number>) : null
-  const stories = (data ? (Object.values(data) as Array<number>) : [])
-  // const stories = useMemo(
-  //   () => (data ? (Object.values(data) as Array<number>) : []),
-  //   [data]
-  // );
-
-
-
-  // const paginationAttributes = {
-  //     currentPage,
-  //     response: stories,
-  //   };
+  const newsPerPage = 10;
+  const API = "https://hacker-news.firebaseio.com/v0/newstories.json";
+  const { stories, error, loading, paginationAttributes } = usePagination(
+    API,
+    newsPerPage
+  );
 
   if (error) {
     return <ErrorHandler message={error?.message} />;
@@ -35,15 +22,9 @@ const News = () => {
 
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
-      {/* <PaginationItem {...stories} /> */}
-      <PaginationItem />
-      {/* <PaginationItem {...paginationAttributes} 
-                  onPrevClick={onPrevClick} 
-                  onNextClick={onNextClick}
-                  onPageChange={onPageChange}
-      /> */}
+      <PaginationItem {...paginationAttributes} newsPerPage={newsPerPage} />
       <Grid item sx={{ width: "100%" }}>
-        {stories.map((item: number) => {
+        {stories?.map((item: number) => {
           return <Story key={item} item={item} />;
         })}
       </Grid>
