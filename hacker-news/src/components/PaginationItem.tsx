@@ -15,6 +15,8 @@ const PaginationItem = ({
 }: Props) => {
   const navigate = useNavigate();
 
+  console.log('p', pages)
+
   const changePage = useCallback(
     (event: ChangeEvent<unknown>) => {
       const pageNumber = (event.target as HTMLElement).textContent;

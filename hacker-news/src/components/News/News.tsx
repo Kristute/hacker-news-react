@@ -10,8 +10,8 @@ const News = () => {
   const { stories, error, loading, paginationAttributes } = usePagination(
     API,
     newsPerPage
-  );
-
+  );  
+  
   if (error) {
     return <ErrorHandler message={error?.message} />;
   }
@@ -24,7 +24,7 @@ const News = () => {
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
       <PaginationItem {...paginationAttributes} newsPerPage={newsPerPage} />
       <Grid item sx={{ width: "100%" }}>
-        {stories?.map((item: number) => {
+        {Object.values(stories as object).map((item: number) => {
           return <Story key={item} item={item} />;
         })}
       </Grid>
