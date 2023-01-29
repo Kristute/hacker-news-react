@@ -9,10 +9,10 @@ interface paginationAttributes {
   currentPage: number;
 }
 
-const usePagination = (API: string, newsPerPage: number) => {
+const usePagination = (URL: string, newsPerPage: number) => {
   const location = useLocation();
   // data - to count total pages
-  const { data, error, loading } = useApiRequest<[]>(API);
+  const { data, error, loading } = useApiRequest<[]>(URL);
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
   const [[startIndex, endIndex], setIndexes] = useState<number[]>([

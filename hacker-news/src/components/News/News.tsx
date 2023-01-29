@@ -6,9 +6,9 @@ import usePagination from "../../hooks/usePagination/usePagination";
 
 const News = () => {
   const newsPerPage = 10;
-  const API = "https://hacker-news.firebaseio.com/v0/newstories.json";
+  const URL = "https://hacker-news.firebaseio.com/v0/newstories.json";
   const { error, loading, paginationAttributes } = usePagination(
-    API,
+    URL,
     newsPerPage
   );
 

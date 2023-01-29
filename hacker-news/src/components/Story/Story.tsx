@@ -29,9 +29,9 @@ interface Props {
 }
 
 const Story = ({ item }: Props) => {
-  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
+  const URL = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const { error, loading, data: article } = useApiRequest<ArticleData>(API);
+  const { error, loading, data: article } = useApiRequest<ArticleData>(URL);
 
   if (article?.type !== "story") {
     return null;
