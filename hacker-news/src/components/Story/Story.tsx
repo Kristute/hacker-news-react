@@ -79,9 +79,11 @@ const Story = ({ item }: Props) => {
             {article.title}
           </Typography>
           <Typography component="span" sx={{ mb: 2 }}>
-            <Link href={article.url} color="primary.light">
-              Read More {">>"}
-            </Link>
+            {article.url ? (
+              <Link href={article.url} color="primary.light">
+                Read More {">>"}
+              </Link>
+            ) : null}
           </Typography>
           <Typography variant="body2" sx={{ display: "flex" }}>
             <Typography

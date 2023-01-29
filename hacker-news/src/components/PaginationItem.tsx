@@ -4,23 +4,16 @@ import { useNavigate } from "react-router-dom";
 
 interface Props {
   pages: number;
-  stories: [];
   currentPage: number;
-  newsPerPage: number;
 }
 
-const PaginationItem = ({
-  pages,
-  currentPage,
-}: Props) => {
+const PaginationItem = ({ pages, currentPage }: Props) => {
   const navigate = useNavigate();
-
-  console.log('p', pages)
 
   const changePage = useCallback(
     (event: ChangeEvent<unknown>) => {
       const pageNumber = (event.target as HTMLElement).textContent;
-      navigate(`../?page="${pageNumber}"`);
+      navigate(`../?page=${pageNumber}`);
     },
     [navigate]
   );

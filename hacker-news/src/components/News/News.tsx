@@ -7,11 +7,11 @@ import usePagination from "../../hooks/usePagination/usePagination";
 const News = () => {
   const newsPerPage = 10;
   const API = "https://hacker-news.firebaseio.com/v0/newstories.json";
-  const { stories, error, loading, paginationAttributes } = usePagination(
+  const { error, loading, paginationAttributes } = usePagination(
     API,
     newsPerPage
-  );  
-  
+  );
+
   if (error) {
     return <ErrorHandler message={error?.message} />;
   }
@@ -22,11 +22,13 @@ const News = () => {
 
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
-      <PaginationItem {...paginationAttributes} newsPerPage={newsPerPage} />
+      <PaginationItem {...paginationAttributes} />
       <Grid item sx={{ width: "100%" }}>
-        {Object.values(stories as object).map((item: number) => {
-          return <Story key={item} item={item} />;
-        })}
+        {Object.values(paginationAttributes.stories as object).map(
+          (item: number) => {
+            return <Story key={item} item={item} />;
+          }
+        )}
       </Grid>
     </Grid>
   );
