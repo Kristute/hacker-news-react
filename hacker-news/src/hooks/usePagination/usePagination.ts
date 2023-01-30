@@ -12,17 +12,17 @@ interface paginationAttributes {
 const usePagination = (URL: string, newsPerPage: number) => {
   const location = useLocation();
   // data - to count total pages
-  const { data, error, loading } = useApiRequest<[]>(URL);
+  const { data, error, loading } = useApiRequest<number[]>(URL);
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
   // stories - to get paginated data
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<number[]>([]);
 
   const totalPages = useMemo(() => {
-    if (data !== undefined) {
+    if (!loading && data !== undefined) {
       return Math.round(Object.entries(data as number[]).length / newsPerPage);
     }
-  }, [data, newsPerPage]);
+  }, [loading, data, newsPerPage]);
 
   const [startIndex, endIndex] = useMemo(() => {
     return [
