@@ -17,9 +17,9 @@ interface Props {
 }
 
 const Comment = ({ item }: Props) => {
-  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
+  const URL = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const { error, loading, data: comment } = useApiRequest<CommentData>(API);
+  const { error, loading, data: comment } = useApiRequest<CommentData>(URL);
 
   if (error) {
     return <ErrorHandler message={error.message} />;
