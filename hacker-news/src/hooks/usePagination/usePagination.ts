@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
@@ -15,22 +15,23 @@ const usePagination = (URL: string, newsPerPage: number) => {
   const { data, error, loading } = useApiRequest<[]>(URL);
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
-  const [[startIndex, endIndex], setIndexes] = useState<number[]>([
-    currentPage * newsPerPage - newsPerPage,
-    currentPage * newsPerPage - 1,
-  ]);
   // stories - to get paginated data
-  const [stories, setData] = useState([]);
+  const [stories, setStories] = useState([]);
 
-  const [totalPages, setTotalPages] = useState<number>(1);
-
-  const getTotalPages = useCallback(() => {
+  const totalPages = useMemo(() => { 
     if (data !== undefined) {
-      setTotalPages(
+      return (
         Math.round(Object.entries(data as number[]).length / newsPerPage)
       );
     }
   }, [data, newsPerPage]);
+
+  const [startIndex, endIndex] = useMemo(() => {
+    return ([
+      currentPage * newsPerPage - newsPerPage,
+      currentPage * newsPerPage - 1,
+    ]);
+  }, [currentPage, newsPerPage]);
 
   // TODO: move this logic from usePagination
   useEffect(() => {
@@ -38,25 +39,14 @@ const usePagination = (URL: string, newsPerPage: number) => {
       `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${startIndex}"&endAt="${endIndex}"`
     )
       .then((res) => res.json())
-      .then((retrievedData) => setData(retrievedData));
+      .then((retrievedData) => setStories(retrievedData));
   }, [startIndex, endIndex]);
 
-  useEffect(() => {
-    if (!loading) getTotalPages();
-  }, [loading, getTotalPages]);
-
-  useEffect(() => {
-    setIndexes([
-      currentPage * newsPerPage - newsPerPage,
-      currentPage * newsPerPage - 1,
-    ]);
-  }, [currentPage, newsPerPage]);
-
-  const paginationAttributes = {
+  const paginationAttributes = useMemo(() => ({
     pages: totalPages,
     stories: stories,
     currentPage: currentPage,
-  } as paginationAttributes;
+  }) as paginationAttributes, [totalPages, stories, currentPage]);
 
   return {
     error,
