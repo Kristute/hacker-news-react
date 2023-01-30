@@ -11,7 +11,7 @@ const Header = () => {
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box>
           <Link href="/">
-          <img src={Logo} width={"100%"} height={30} alt="Logo" />
+            <img src={Logo} width={"100%"} height={30} alt="Logo" />
           </Link>
         </Box>
         <Box>

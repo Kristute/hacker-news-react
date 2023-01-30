@@ -18,19 +18,17 @@ const usePagination = (URL: string, newsPerPage: number) => {
   // stories - to get paginated data
   const [stories, setStories] = useState([]);
 
-  const totalPages = useMemo(() => { 
+  const totalPages = useMemo(() => {
     if (data !== undefined) {
-      return (
-        Math.round(Object.entries(data as number[]).length / newsPerPage)
-      );
+      return Math.round(Object.entries(data as number[]).length / newsPerPage);
     }
   }, [data, newsPerPage]);
 
   const [startIndex, endIndex] = useMemo(() => {
-    return ([
+    return [
       currentPage * newsPerPage - newsPerPage,
       currentPage * newsPerPage - 1,
-    ]);
+    ];
   }, [currentPage, newsPerPage]);
 
   // TODO: move this logic from usePagination
@@ -42,11 +40,15 @@ const usePagination = (URL: string, newsPerPage: number) => {
       .then((retrievedData) => setStories(retrievedData));
   }, [startIndex, endIndex]);
 
-  const paginationAttributes = useMemo(() => ({
-    pages: totalPages,
-    stories: stories,
-    currentPage: currentPage,
-  }) as paginationAttributes, [totalPages, stories, currentPage]);
+  const paginationAttributes = useMemo(
+    () =>
+      ({
+        pages: totalPages,
+        stories: stories,
+        currentPage: currentPage,
+      } as paginationAttributes),
+    [totalPages, stories, currentPage]
+  );
 
   return {
     error,

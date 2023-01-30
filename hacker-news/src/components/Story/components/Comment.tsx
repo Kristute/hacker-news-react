@@ -43,11 +43,22 @@ const Comment = ({ item }: Props) => {
             }}
           >
             <AccountCircleOutlinedIcon />
-            <Typography variant="h6" color="secondary.light" component="span" fontWeight={700} width="100%">
+            <Typography
+              variant="h6"
+              color="secondary.light"
+              component="span"
+              fontWeight={700}
+              width="100%"
+            >
               {comment.by}:
             </Typography>
           </Typography>
-          <Typography variant="caption" color="text.secondary" width="100%" textAlign="right">
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            width="100%"
+            textAlign="right"
+          >
             {formatDate(comment.time)}
           </Typography>
         </Box>
