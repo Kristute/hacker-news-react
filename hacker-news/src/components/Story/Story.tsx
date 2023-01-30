@@ -80,7 +80,7 @@ const Story = ({ item }: Props) => {
           </Typography>
           <Typography component="span" sx={{ mb: 2 }}>
             {article.url ? (
-              <Link href={article.url} color="primary.light">
+              <Link href={article.url} color="primary.dark">
                 Read More {">>"}
               </Link>
             ) : null}

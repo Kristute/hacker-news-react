@@ -4,6 +4,7 @@ import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import { useTheme } from "@mui/material/styles";
 import { useColorContext, THEME } from "./ColorModeContext";
+import { Typography } from "@mui/material";
 
 const ThemeSwitch = () => {
   const theme = useTheme();
@@ -28,8 +29,10 @@ const ThemeSwitch = () => {
           cursor: "pointer",
         }}
       >
-        {theme.palette.mode} mode
         <IconButton sx={{ ml: 1 }} color="inherit">
+          <Typography variant="body2" component="span" mr={2}>
+            {theme.palette.mode} mode
+          </Typography>
           {theme.palette.mode === THEME.DARK ? (
             <Brightness7Icon />
           ) : (
