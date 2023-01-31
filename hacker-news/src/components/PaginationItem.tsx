@@ -24,6 +24,8 @@ const PaginationItem = ({ pages, currentPage }: Props) => {
         count={pages}
         page={currentPage ? Number(currentPage) : 1}
         onChange={changePage}
+        color="primary"
+        size="large"
       />
     </div>
   );
