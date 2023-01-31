@@ -3,9 +3,12 @@ import { useLocation } from "react-router-dom";
 
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 
+interface storiesData {
+  id: number
+}
 interface paginationAttributes {
   pages: number;
-  stories: [];
+  stories: storiesData;
   currentPage: number;
 }
 
@@ -16,7 +19,7 @@ const usePagination = (URL: string, newsPerPage: number) => {
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
   // stories - to get paginated data
-  const [stories, setStories] = useState<number[]>([]);
+  const [stories, setStories] = useState<storiesData>();
 
   const totalPages = useMemo(() => {
     if (!loading && data !== undefined) {
