@@ -26,6 +26,16 @@ const PaginationItem = ({ pages, currentPage }: Props) => {
         onChange={changePage}
         color="primary"
         size="large"
+        sx={{
+        '& .MuiPaginationItem-root': {
+          color: 'black',
+          '&:hover, &.Mui-focusVisible': {
+            background: "lightgrey"
+          },
+        },
+        '& .MuiButtonBase-root.Mui-selected': {
+          color: 'white',
+        },}}
       />
     </div>
   );
