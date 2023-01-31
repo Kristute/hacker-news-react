@@ -1,23 +1,15 @@
-import { useMemo } from "react";
 import { Grid } from "@mui/material";
-
-import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
+import PaginationItem from "../PaginationItem";
 import Story from "../Story/Story";
 import ErrorHandler from "../ErrorHandler";
-
-interface NewsData {
-  id: number;
-}
+import usePagination from "../../hooks/usePagination/usePagination";
 
 const News = () => {
-  const LIMIT = 50;
-  const API = `https://hacker-news.firebaseio.com/v0/newstories.json?&orderBy="$key"&startAt="${LIMIT}"&endAt="80"`;
-
-  const { error, loading, data } = useApiRequest<NewsData>(API);
-
-  const stories = useMemo(
-    () => (data ? (Object.values(data) as Array<number>) : []),
-    [data]
+  const newsPerPage = 10;
+  const URL = "https://hacker-news.firebaseio.com/v0/newstories.json";
+  const { error, loading, paginationAttributes } = usePagination(
+    URL,
+    newsPerPage
   );
 
   if (error) {
@@ -30,10 +22,13 @@ const News = () => {
 
   return (
     <Grid container spacing={2} sx={{ marginTop: 2 }}>
+      <PaginationItem {...paginationAttributes} />
       <Grid item sx={{ width: "100%" }}>
-        {stories.map((item: number) => {
-          return <Story key={item} item={item} />;
-        })}
+        {Object.values(paginationAttributes.stories as object).map(
+          (item: number) => {
+            return <Story key={item} item={item} />;
+          }
+        )}
       </Grid>
     </Grid>
   );

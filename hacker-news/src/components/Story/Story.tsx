@@ -29,9 +29,9 @@ interface Props {
 }
 
 const Story = ({ item }: Props) => {
-  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
+  const URL = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const { error, loading, data: article } = useApiRequest<ArticleData>(API);
+  const { error, loading, data: article } = useApiRequest<ArticleData>(URL);
 
   if (article?.type !== "story") {
     return null;
@@ -79,9 +79,11 @@ const Story = ({ item }: Props) => {
             {article.title}
           </Typography>
           <Typography component="span" sx={{ mb: 2 }}>
-            <Link href={article.url} color="primary.light">
-              Read More {">>"}
-            </Link>
+            {article.url ? (
+              <Link href={article.url} color="primary.dark">
+                Read More {">>"}
+              </Link>
+            ) : null}
           </Typography>
           <Typography variant="body2" sx={{ display: "flex" }}>
             <Typography

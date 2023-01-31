@@ -17,9 +17,9 @@ interface Props {
 }
 
 const Comment = ({ item }: Props) => {
-  const API = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
+  const URL = `https://hacker-news.firebaseio.com/v0/item/${item}.json`;
 
-  const { error, loading, data: comment } = useApiRequest<CommentData>(API);
+  const { error, loading, data: comment } = useApiRequest<CommentData>(URL);
 
   if (error) {
     return <ErrorHandler message={error.message} />;
@@ -31,7 +31,7 @@ const Comment = ({ item }: Props) => {
 
   return (
     <Box>
-      <Paper sx={{ p: 2, width: "100%", my: 1 }}>
+      <Paper sx={{ p: 2, width: "100%", my: 1, bgcolor: "background.default" }}>
         <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
           <Typography
             variant="body2"
@@ -43,11 +43,22 @@ const Comment = ({ item }: Props) => {
             }}
           >
             <AccountCircleOutlinedIcon />
-            <Typography variant="h6" color="primary.dark" component="span">
+            <Typography
+              variant="h6"
+              color="secondary.light"
+              component="span"
+              fontWeight={700}
+              width="100%"
+            >
               {comment.by}:
             </Typography>
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography
+            variant="caption"
+            color="text.secondary"
+            width="100%"
+            textAlign="right"
+          >
             {formatDate(comment.time)}
           </Typography>
         </Box>

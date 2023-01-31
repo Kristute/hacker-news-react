@@ -1,5 +1,5 @@
 import { ThemeOptions } from "@mui/material";
-import { amber, grey } from "@mui/material/colors";
+import { amber, grey, red } from "@mui/material/colors";
 import { THEME } from "../ColorModeContext";
 
 export const lightTheme: ThemeOptions = {
@@ -7,8 +7,8 @@ export const lightTheme: ThemeOptions = {
     mode: THEME.LIGHT,
     primary: {
       main: amber[500],
-      dark: amber[900],
-      light: amber[600],
+      dark: red[800],
+      light: red[500],
     },
     secondary: {
       main: grey[800],
@@ -21,8 +21,8 @@ export const lightTheme: ThemeOptions = {
     },
     divider: amber[200],
     background: {
-      default: amber[800],
-      paper: amber[50],
+      default: amber[50],
+      paper: grey[50],
     },
   },
 };
