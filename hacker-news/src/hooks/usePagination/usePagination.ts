@@ -8,7 +8,7 @@ interface storiesData {
 }
 interface paginationAttributes {
   pages: number;
-  stories: storiesData;
+  stories: storiesData[];
   currentPage: number;
 }
 
@@ -19,7 +19,7 @@ const usePagination = (URL: string, newsPerPage: number) => {
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
   // stories - to get paginated data
-  const [stories, setStories] = useState<storiesData>();
+  const [stories, setStories] = useState<storiesData[]>();
 
   const totalPages = useMemo(() => {
     if (!loading && data !== undefined) {
