@@ -10,5 +10,5 @@
 - [x] Site is responsive
 - [x] Logic is separated from UI
 - [ ] Tested common components and services
-- [ ] Google lighthouse score is 100 (exept performance)
+- [x] Google lighthouse score is 100 (exept performance)
 - [x] Use dark theme

@@ -31,7 +31,7 @@ const Comment = ({ item }: Props) => {
 
   return (
     <Box>
-      <Paper sx={{ p: 2, width: "100%", my: 1 }}>
+      <Paper sx={{ p: 2, width: "100%", my: 1, bgcolor: "background.default" }}>
         <Box color="inherit" sx={{ display: "flex", width: "100%", mr: 1 }}>
           <Typography
             variant="body2"

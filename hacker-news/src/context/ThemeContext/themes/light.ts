@@ -21,7 +21,7 @@ export const lightTheme: ThemeOptions = {
     },
     divider: amber[200],
     background: {
-      default: amber[800],
+      default: amber[50],
       paper: grey[50],
     },
   },

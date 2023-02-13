@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import { Story } from '../../types/story';
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 
 interface paginationAttributes {
   pages: number;
-  stories: [];
+  stories: Story;
   currentPage: number;
 }
 
@@ -16,7 +17,7 @@ const usePagination = (URL: string, newsPerPage: number) => {
   const params = new URLSearchParams(location.search);
   const currentPage = Number(params.get("page")) || 1;
   // stories - to get paginated data
-  const [stories, setStories] = useState<number[]>([]);
+  const [stories, setStories] = useState<Story>();
 
   const totalPages = useMemo(() => {
     if (!loading && data !== undefined) {
