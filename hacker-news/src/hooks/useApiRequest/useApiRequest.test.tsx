@@ -1,57 +1,51 @@
-import { renderHook, act } from "@testing-library/react-hooks";
-import useApiRequest from "./useApiRequest";
 import axios from "axios";
+import useApiRequest from "./useApiRequest";
+import { renderHook } from "@testing-library/react-hooks";
 
 jest.mock("axios");
-
-const useApiMockData = [
-  {
-    50: 34477919,
-    51: 34477915,
-    52: 34477901,
-  },
-];
+const url = "https://hacker-news.firebaseio.com/v0/newstories.json";
 
 describe("useApiRequest Hook", () => {
-  it("initial and success state", async () => {
+  it("should fetch data from the API and set the state correctly", async () => {
+    const useApiMockData = { 
+      data: { 
+        0: 34773033,
+        1: 34772999,
+        2: 34772982,
+        3: 34772975,
+        4: 34772954
+      } 
+    };
+
     (axios.get as jest.Mock).mockResolvedValue(useApiMockData);
-    // ignore act
-    const { result, waitForNextUpdate } = act(() => {
-      renderHook(() => useApiRequest("lorem"));
-      return { result, waitForNextUpdate };
-    });
-    expect(result.current).toMatchObject({
-      data: [],
-      error: "",
-      state: "LOADING",
-    });
+
+    const { result, waitForNextUpdate } = renderHook(() => useApiRequest<{ id: number }>(url));
+
+    expect(result.current.loading).toBe(true);
+    expect(result.current.error).toBe(undefined);
+    expect(result.current.data).toBe(undefined);
 
     await waitForNextUpdate();
 
-    expect(result.current).toMatchObject({
-      data: useApiMockData,
-      error: "",
-      state: "SUCCESS",
-    });
+    expect(result.current.loading).toBe(false);
+    expect(result.current.error).toBe(undefined);
+    expect(result.current.data).toEqual(useApiMockData.data);
   });
 
-  it("error state", async () => {
-    const errorMessage = "Network Error";
-    (axios.get as jest.Mock).mockImplementationOnce(() =>
-      Promise.reject(new Error(errorMessage))
-    );
+  it("should set the error state correctly if there's an error", async () => {
+    const mockError = new Error("Something went wrong");
+    (axios.get as jest.Mock).mockRejectedValue(mockError);
 
-    const { result, waitForNextUpdate } = act(() => {
-      renderHook(() => useApiRequest("lorem"));
-      return { result, waitForNextUpdate };
-    });
+    const { result, waitForNextUpdate } = renderHook(() => useApiRequest<{ id: number }>(url));
+
+    expect(result.current.loading).toBe(true);
+    expect(result.current.error).toBe(undefined);
+    expect(result.current.data).toBe(undefined);
 
     await waitForNextUpdate();
 
-    expect(result.current).toMatchObject({
-      data: [],
-      error: "Fetch failed",
-      state: "ERROR",
-    });
+    expect(result.current.loading).toBe(false);
+    expect(result.current.error).toEqual(mockError);
+    expect(result.current.data).toBe(undefined);
   });
 });
