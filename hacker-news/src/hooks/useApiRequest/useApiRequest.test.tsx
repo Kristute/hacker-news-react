@@ -1,6 +1,7 @@
 import axios from "axios";
-import useApiRequest from "./useApiRequest";
 import { renderHook } from "@testing-library/react-hooks";
+
+import useApiRequest from "./useApiRequest";
 
 jest.mock("axios");
 const url = "https://hacker-news.firebaseio.com/v0/newstories.json";
