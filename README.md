@@ -9,6 +9,6 @@
 - [x] Display comments for stories
 - [x] Site is responsive
 - [x] Logic is separated from UI
-- [ ] Tested common components and services
+- [x] Tested common components and services
 - [x] Google lighthouse score is 100 (exept performance)
 - [x] Use dark theme
