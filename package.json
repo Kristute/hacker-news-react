@@ -2,7 +2,7 @@
   "name": "hacker-news",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://kristute.github.io/hacker-news-react",
+  "homepage": "https://kristute.github.io/hacker-news-react/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
