@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/%7Brepo-name%7D/static/js/main.31ea8be6.js",
+    "static/media/hacker-logo.png": "/%7Brepo-name%7D/static/media/hacker-logo.138e39ec5f6f231827f4.png",
+    "index.html": "/%7Brepo-name%7D/index.html",
+    "main.31ea8be6.js.map": "/%7Brepo-name%7D/static/js/main.31ea8be6.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.31ea8be6.js"
+  ]
+}
