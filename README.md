@@ -1,4 +1,4 @@
-# react-page
+# React page
 
 [Hacker News App](https://kristute.github.io/hacker-news-react).
 
