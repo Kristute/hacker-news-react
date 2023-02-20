@@ -8,19 +8,21 @@ const url = "https://hacker-news.firebaseio.com/v0/newstories.json";
 
 describe("useApiRequest Hook", () => {
   it("should fetch data from the API and set the state correctly", async () => {
-    const useApiMockData = { 
-      data: { 
+    const useApiMockData = {
+      data: {
         0: 34773033,
         1: 34772999,
         2: 34772982,
         3: 34772975,
-        4: 34772954
-      } 
+        4: 34772954,
+      },
     };
 
     (axios.get as jest.Mock).mockResolvedValue(useApiMockData);
 
-    const { result, waitForNextUpdate } = renderHook(() => useApiRequest<{ id: number }>(url));
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useApiRequest<{ id: number }>(url)
+    );
 
     expect(result.current.loading).toBe(true);
     expect(result.current.error).toBe(undefined);
@@ -37,7 +39,9 @@ describe("useApiRequest Hook", () => {
     const mockError = new Error("Something went wrong");
     (axios.get as jest.Mock).mockRejectedValue(mockError);
 
-    const { result, waitForNextUpdate } = renderHook(() => useApiRequest<{ id: number }>(url));
+    const { result, waitForNextUpdate } = renderHook(() =>
+      useApiRequest<{ id: number }>(url)
+    );
 
     expect(result.current.loading).toBe(true);
     expect(result.current.error).toBe(undefined);

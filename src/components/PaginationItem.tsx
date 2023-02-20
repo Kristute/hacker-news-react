@@ -5,17 +5,21 @@ import { useNavigate } from "react-router-dom";
 interface Props {
   pages: number;
   currentPage: number;
+  onPageChange?: (newPage: number) => void;
 }
 
-const PaginationItem = ({ pages, currentPage }: Props) => {
+const PaginationItem = ({ pages, currentPage, onPageChange }: Props) => {
   const navigate = useNavigate();
 
   const changePage = useCallback(
-    (event: ChangeEvent<unknown>) => {
-      const pageNumber = (event.target as HTMLElement).textContent;
-      navigate(`../?page=${pageNumber}`);
+    (event: ChangeEvent<unknown>, newPage: number) => {
+      if (onPageChange) {
+        onPageChange(newPage);
+      }
+
+      navigate(`../?page=${newPage}`);
     },
-    [navigate]
+    [navigate, onPageChange]
   );
 
   return (
@@ -27,15 +31,22 @@ const PaginationItem = ({ pages, currentPage }: Props) => {
         color="primary"
         size="large"
         sx={{
-        '& .MuiPaginationItem-root': {
-          color: 'black',
-          '&:hover, &.Mui-focusVisible': {
-            background: "lightgrey"
+          "& .MuiPaginationItem-root": {
+            color: "black",
+            "&:hover, &.Mui-focusVisible": {
+              background: "lightgrey",
+            },
           },
-        },
-        '& .MuiButtonBase-root.Mui-selected': {
-          color: 'white',
-        },}}
+          "& .MuiButtonBase-root.Mui-selected": {
+            color: "white",
+          },
+          "& .MuiPaginationItem-ellipsis": {
+            "&:hover, &.Mui-focusVisible": {
+              background: "transparent",
+              cursor: "default",
+            },
+          },
+        }}
       />
     </div>
   );

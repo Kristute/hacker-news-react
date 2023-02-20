@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-import { Story } from '../../types/story';
+import { Story } from "../../types/story";
 import useApiRequest from "../../hooks/useApiRequest/useApiRequest";
 
 interface paginationAttributes {
