@@ -27,7 +27,7 @@ const News = () => {
         currentPage={paginationAttributes.currentPage}
       />
       <Grid item sx={{ width: "100%" }}>
-        {paginationAttributes.stories && Object.values(paginationAttributes.stories as object).map(
+        {paginationAttributes.stories && Object.values(paginationAttributes.stories).map(
           (item: number) => {
             return <Story key={item} item={item} />;
           }
